@@ -9,12 +9,12 @@
 
 ## Phases
 
-1. **Design system and homepage** — establish a lightweight React/Vite/TypeScript foundation, global typography, palette, responsive primitives, preview banner, navigation/footer shell, and the editorial homepage. Use illustrative editorial imagery only; leave a clearly identified storefront-photo slot until a real shop image is supplied. Verify the development server, production build, homepage interactions, and responsive layout, then create a Git checkpoint.
-2. **Central content and shared site shell** — add centralized business, services, pricing, testimonial, gallery, FAQ, and hours data with verified/demo/needs-confirmation statuses and a single `DEMO_MODE` switch; wire common route navigation and reusable content components.
-3. **Service pages and lookbook** — add the service index and individual service/category pages, plus filterable inspiration gallery and accessible image viewer. Mark every unverified category and image as demo content.
-4. **Pricing, testimonials, FAQ, and blog** — implement searchable/filterable illustrative price estimates, confirmation notes, sample-only reviews, FAQs, and sample editorial content; hide unverified content when demo mode is off.
-5. **About, booking, contact, and location** — add truthful brand/about content, a validated demo enquiry form, store directions and listing links, configurable disabled-by-default WhatsApp entry points, and sample-hours handling.
-6. **SEO, accessibility, and final verification** — add per-route metadata, canonical/Open Graph values, sitemap/robots and verified-only local business structured data; review reduced motion, keyboard support, mobile layouts, route behavior, production-mode visibility, console output, and production build. Fix issues found.
+1. **Design system and homepage — COMPLETE** — created the React/Vite/TypeScript foundation, design system and editorial homepage, including a labeled storefront illustration slot. Verified the production build and mobile navigation; checkpoint `f98f447` records this phase.
+2. **Central content and shared site shell — COMPLETE** — added business, service, pricing, testimonial, gallery, FAQ, hours, delivery and blog data with verification states and a default-on `DEMO_MODE` switch.
+3. **Service pages and lookbook — COMPLETE** — built the service index, seven distinct service landing pages, and a filterable lookbook with an image viewer.
+4. **Pricing, testimonials, FAQ, and blog — COMPLETE** — added searchable/category-filtered pricing, comparison, sample-only reviews, FAQs, and six sample journal articles.
+5. **About, booking, contact, and location — COMPLETE** — added the About, appointment, contact, location, map/directions, draft policy pages, simulated WhatsApp control, and demo hours. Verified required-field and Indian phone validation plus preview-only success behavior.
+6. **SEO, accessibility, and final verification — COMPLETE WITH DOMAIN CONFIGURATION PENDING** — added per-route metadata, canonical/Open Graph tags, verified-only LocalBusiness structured data, robots, and a sitemap generator. Verified production-mode hiding and the sitemap generator using a reserved test domain. A real `VITE_SITE_URL` is still required to generate deployment URLs.
 
 ## Phase gates
 
@@ -22,3 +22,4 @@
 - Proceed sequentially; reuse the components and data contracts created in earlier phases.
 - Do not claim demo data is real. Do not add internal business-management functionality.
 - Do not claim a real storefront photograph is present; replace the marked slot only when an actual shop image is available.
+- The website is built and tested. A deployable sitemap and production canonical origin require the real public domain.
