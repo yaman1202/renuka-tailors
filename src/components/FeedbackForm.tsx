@@ -9,6 +9,7 @@ export function FeedbackForm() {
 
   function sendFeedback(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
+    setWhatsappLink('')
     const data = new FormData(event.currentTarget)
     const digits = String(data.get('phone') ?? '').replace(/\D/g, '')
     const localNumber = digits.length === 12 && digits.startsWith('91') ? digits.slice(2) : digits
@@ -17,7 +18,7 @@ export function FeedbackForm() {
       return
     }
     const body = [
-      'Private customer feedback for Renuka Tailors',
+      'Private customer feedback for Renuka Tailors — 5% off my next order offer',
       `Name: ${String(data.get('name') ?? '').trim()}`,
       `Contact: ${String(data.get('phone') ?? '').trim()}`,
       `Feedback: ${String(data.get('feedback') ?? '').trim()}`,
@@ -29,7 +30,7 @@ export function FeedbackForm() {
 
   return <form className="feedback-form" onSubmit={sendFeedback}>
     <h3>Private feedback</h3>
-    <p>Send a private message directly to the shop. No review or feedback is stored on this website.</p>
+    <p>Send feedback directly to the shop to claim 5% off your next order. This offer does not depend on posting a Google review. No information is stored on this website.</p>
     <label>Your name<input name="name" autoComplete="name" required /></label>
     <label>Contact number<input name="phone" type="tel" autoComplete="tel" inputMode="tel" required /></label>
     <label>Your feedback<textarea name="feedback" rows={4} required /></label>

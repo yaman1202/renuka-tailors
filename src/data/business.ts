@@ -15,7 +15,7 @@ export const business = {
   email: { value: '', status: 'needs_confirmation' as SourceStatus },
   whatsapp: { value: '919927144263', status: 'verified' as SourceStatus },
   whatsappTemplates: { values: ['Hello Renuka Tailors, I would like to enquire about women’s wear and tailoring.'], status: 'verified' as SourceStatus },
-  reviewUrl: { value: 'https://www.google.com/maps/place/Renuka+Tailors/@28.996372,77.6967102,17z/data=!4m8!3m7!1s0x390c65a9e22f886b:0x30d9fb8a41185972!8m2!3d28.996372!4d77.6992851!9m1!1b1!16s%2Fg%2F11fy_d9x6w?entry=ttu&g_ep=EgoyMDI2MTAyOC4wIKXMDSoASAFQAw%3D%3D', status: 'verified' as SourceStatus },
+  reviewUrl: { value: 'https://www.google.com/maps/place/Renuka+Tailors/@28.996372,77.6967102,17z/data=!4m8!3m7!1s0x390c65a9e22f886b:0x30d9fb8a41185972!8m2!3d28.996372!4d77.6992851!9m1!1b1!16s%2Fg%2F11fy_d9x6w?entry=ttu', status: 'verified' as SourceStatus },
   storefrontImage: { value: '', status: 'needs_confirmation' as SourceStatus },
   enquiryEndpoint: { value: '', status: 'needs_confirmation' as SourceStatus },
 } satisfies Record<string, unknown>

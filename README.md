@@ -1,6 +1,6 @@
 # Renuka Tailors website
 
-Simple public website for Renuka Tailors in Meerut.
+Responsive marketing website for Renuka Tailors in Meerut.
 
 ## Run locally
 
@@ -9,19 +9,21 @@ npm install
 npm run dev
 ```
 
-`npm run build` runs TypeScript checks and builds the production website. Set `VITE_SITE_URL` to the public website origin before deployment to generate canonical URLs and `sitemap.xml`.
+`npm run build` runs TypeScript checks, creates the production site, and generates a sitemap. Set `VITE_SITE_URL` to the public website origin before deployment.
 
-## Website content
+## Website structure
 
+- `src/App.tsx` — navigation, homepage sections and site footer.
+- `src/styles.css` — shared design system and responsive layouts.
 - `src/data/business.ts` — business details, phone numbers, location and map links.
-- `src/App.tsx` — homepage, navigation and footer.
-- `src/ServicePages.tsx` — service information and the work-photo placeholder.
+- `src/BookingPage.tsx` — appointment request prepared for WhatsApp; not submitted automatically.
+- `src/components/FeedbackForm.tsx` — private feedback prepared for WhatsApp; the site does not store form details.
+- `src/ServicePages.tsx` — service pages and visual-reference lookbook.
 - `src/StorePages.tsx` — About, contact and location pages.
-- `src/InformationPages.tsx` — quotes by request, feedback, FAQ and updates pages.
-- `src/components/FeedbackForm.tsx` — private feedback message prepared for WhatsApp. The site does not store form details.
+- `public/images` — locally hosted licensed photographs and `IMAGE_CREDITS.md`.
 
-The workspace has no product inventory, customer reviews, or approved photos of Renuka Tailors’ work. Those sections stay empty until real material is supplied. The website does not publish prices.
+The workspace has no product inventory, customer review feed, or appointment backend. The lookbook images are labeled visual references and do not represent shop stock or completed customer work. The website does not publish prices or reviews.
 
 ## Before deployment
 
-Set `VITE_SITE_URL` to the actual domain. Confirm the displayed phone numbers and WhatsApp availability, and provide approved shop photos if the gallery should be populated. Review the website privacy and terms text before publishing.
+Set `VITE_SITE_URL` to the real domain. Confirm the displayed phone numbers and WhatsApp availability. Replace the visual-reference photos with approved Renuka Tailors photos when available. Review the privacy and terms text before publishing.

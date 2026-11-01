@@ -9,7 +9,8 @@ if (!siteUrl) {
 }
 
 const routes = [
-  '/', '/about', '/services', '/services/womens-wear', '/gallery', '/pricing',
+  '/', '/about', '/services', '/services/womens-wear', '/services/professional-tailoring',
+  '/services/embroidery', '/services/fashion-design', '/gallery', '/pricing',
   '/testimonials', '/faq', '/appointment', '/contact', '/location', '/privacy', '/terms',
 ]
 const urls = routes.map(route => `  <url><loc>${siteUrl}${route}</loc></url>`).join('\n')
