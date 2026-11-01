@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
-import { ArrowDown, ArrowRight, Award, Clock3, MapPin, Menu, Phone, Scissors, Sparkles, Users, X } from 'lucide-react'
+import { ArrowRight, Award, Clock3, MapPin, Menu, Phone, Scissors, Sparkles, Users, X } from 'lucide-react'
 import { Link, Route, Routes, useLocation } from 'react-router-dom'
 import { business } from './data/business'
+import { aboutPhotos, collectionPhotos, craftPhotos, featuredPhoto, heroPhoto, servicePhotos } from './data/photos'
 import { ServicesIndexPage, ServiceDetailPage, LookbookPage } from './ServicePages'
 import { PricingPage, TestimonialsPage, FAQPage, BlogPage, BlogArticlePage } from './InformationPages'
 import { AboutPage, ContactPage, LocationPage } from './StorePages'
@@ -10,14 +11,8 @@ import { PolicyPage } from './PolicyPages'
 import { SeoHead } from './SeoHead'
 import { ErrorBoundary } from './ErrorBoundary'
 import { FeedbackForm } from './components/FeedbackForm'
+import { PhotoGallery } from './components/PhotoGallery'
 import { WhatsAppButton } from './components/WhatsAppButton'
-
-const photos = {
-  hero: '/images/hero-saree.jpg',
-  bridal: '/images/bridal-saree.jpg',
-  embroidery: '/images/embroidered-sari.jpg',
-  sewing: '/images/sewing-detail.jpg',
-}
 
 function Brand() {
   return <Link className="brand" to="/" aria-label="Renuka Tailors home"><span className="brand-mark"><Scissors size={19} strokeWidth={1.6} /></span><span><strong>Renuka Tailors</strong><small>MEERUT · EST. 1998</small></span></Link>
@@ -27,13 +22,13 @@ function Header() {
   const [open, setOpen] = useState(false)
   const close = () => setOpen(false)
   return <>
-    <div className="announcement">Crafting Beautiful Women’s Wear Since 1998 <span>·</span> Renuka Tailors, Meerut</div>
+    <div className="announcement">Women’s wear and tailoring in Meerut <span>·</span> Est. 1998</div>
     <header className="site-header">
       <Brand />
       <button className="menu-toggle" aria-label={open ? 'Close menu' : 'Open menu'} aria-expanded={open} onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</button>
       <nav className={open ? 'nav-open' : ''} aria-label="Main navigation">
         <Link to="/#top" onClick={close}>Home</Link><Link to="/#about" onClick={close}>About us</Link>
-        <div className="nav-services"><Link to="/services" onClick={close}>Our services</Link><div className="nav-dropdown"><Link to="/services/womens-wear" onClick={close}>Women’s wear</Link><Link to="/services/embroidery" onClick={close}>Embroidery</Link><Link to="/services/fashion-design" onClick={close}>Design consultation</Link></div></div>
+        <div className="nav-services"><Link to="/services" onClick={close}>Our services</Link><div className="nav-dropdown"><Link to="/services/womens-wear" onClick={close}>Women’s wear</Link><Link to="/services/salwar-suits" onClick={close}>Salwar suits</Link><Link to="/services/saree-blouses" onClick={close}>Saree blouses</Link><Link to="/services/embroidery" onClick={close}>Embroidery work</Link><Link to="/services/fashion-design" onClick={close}>Design consultation</Link></div></div>
         <Link to="/#collection" onClick={close}>Collection</Link><Link to="/#craft" onClick={close}>Craftsmanship</Link><Link to="/contact" onClick={close}>Contact</Link>
         <Link className="nav-contact" to="/appointment" onClick={close}>Book an appointment <ArrowRight size={14} /></Link>
       </nav>
@@ -47,76 +42,75 @@ function SectionIntro({ label, title, copy }: { label: string; title: string; co
 
 function Hero() {
   return <section className="home-hero" id="top">
-    <div className="hero-copy"><p className="eyebrow">EST. 1998 <span>·</span> MEERUT</p><h1>Perfectly Tailored.<br /><em>Beautifully Yours.</em></h1>
-      <p className="hero-subtitle">From timeless traditional wear to contemporary women’s fashion, Renuka Tailors brings creativity, craftsmanship and precision to every design.</p>
-      <div className="hero-actions"><Link className="button button-primary" to="/#collection">Explore our collection <ArrowDown size={15} /></Link><Link className="button button-outline" to="/appointment">Book an appointment <ArrowRight size={15} /></Link></div>
-      <p className="hero-byline"><span className="byline-rule" /> Founded by Vijay Gautam</p>
+    <div className="hero-copy"><p className="eyebrow">RENUKA TAILORS <span>·</span> MEERUT</p><h1>The Art of<br /><em>Perfect Fit.</em></h1>
+      <p className="hero-subtitle">Thoughtfully tailored. Beautifully crafted. Made to complement your style.</p>
+      <div className="hero-actions"><Link className="button button-primary" to="/services">Discover Our Services <ArrowRight size={15} /></Link><Link className="button button-outline" to="/#collection">Explore Our Collection <ArrowRight size={15} /></Link></div>
+      <p className="hero-byline"><span className="byline-rule" /> Women’s wear in Meerut since 1998</p>
     </div>
-      <div className="hero-image-wrap"><img src={photos.hero} alt="Woman in a teal and purple sari in an indoor portrait" fetchPriority="high" /><span className="image-caption">A style reference · Milton Das / Pexels</span><div className="hero-stamp"><span>RENUKA</span><Scissors size={22} /><span>TAILORS</span></div></div>
+    <div className="hero-image-wrap"><img src={heroPhoto.src} alt={heroPhoto.alt} fetchPriority="high" /><span className="image-caption">Campaign image · Unsplash</span></div>
   </section>
 }
 
 function FactsStrip() {
-  return <section className="facts-strip" aria-label="Renuka Tailors at a glance"><div><strong>Since 1998</strong><span>Established in Meerut</span></div><div><strong>100+ workers</strong><span>An experienced tailoring team</span></div><div><strong>Professional designers</strong><span>Design support at the shop</span></div><div><strong>Embroidery</strong><span>A wide range of embroidery work</span></div></section>
+  return <section className="facts-strip" aria-label="Renuka Tailors at a glance"><div><strong>Since 1998</strong><span>Established by Vijay Gautam</span></div><div><strong>100+ workers</strong><span>An experienced tailoring team</span></div><div><strong>Fashion designers</strong><span>Design support at the shop</span></div><div><strong>Embroidery</strong><span>Traditional and detailed work</span></div></section>
 }
 
 function AboutSection() {
   return <section className="about-section" id="about">
-    <div className="about-image"><img src={photos.sewing} alt="Tailor guiding fabric through an industrial sewing machine" loading="lazy" /><span className="image-caption">A detail from the tailoring process · Jane Blaze / Pexels</span></div>
-    <div className="about-copy"><p className="eyebrow">ABOUT RENUKA TAILORS</p><h2>More than two decades of <em>craftsmanship.</em></h2><p>Established in 1998 by Vijay Gautam, Renuka Tailors has built its name through professional tailoring, attention to detail and a long-standing focus on women’s fashion.</p><p>Today, the team brings together professional fashion designers, more than 100 workers, latest technology machines and embroidery expertise.</p><div className="about-facts"><span><strong>1998</strong>Established</span><span><strong>100+</strong>Team members</span><span><strong>Meerut</strong>Uttar Pradesh</span></div><Link className="text-link" to="/about">Our story <ArrowRight size={15} /></Link></div>
+    <div className="about-photo-stack">
+      <figure className="about-image about-image-main"><img src={aboutPhotos[0].src} alt={aboutPhotos[0].alt} loading="lazy" /><figcaption>{aboutPhotos[0].note}</figcaption></figure>
+      <figure className="about-image about-image-detail"><img src={aboutPhotos[1].src} alt={aboutPhotos[1].alt} loading="lazy" /><figcaption>{aboutPhotos[1].note}</figcaption></figure>
+    </div>
+    <div className="about-copy"><p className="eyebrow">ABOUT RENUKA TAILORS</p><h2>Made with care.<br /><em>Worn your way.</em></h2><p>Founded by Vijay Gautam in 1998, Renuka Tailors brings women’s wear and professional tailoring together in Meerut.</p><p>Professional fashion designers, a team of more than 100 workers, latest technology machines and embroidery expertise support the work.</p><div className="about-facts"><span><strong>1998</strong>Established</span><span><strong>100+</strong>Team members</span><span><strong>Meerut</strong>Uttar Pradesh</span></div><Link className="text-link" to="/about">More about us <ArrowRight size={15} /></Link><small className="reference-note">Photographs are illustrative style references.</small></div>
   </section>
 }
 
-const serviceCards = [
-  { no: '01', slug: 'womens-wear', name: 'Women’s wear', text: 'Discuss traditional and contemporary women’s garments with the team.', icon: <Sparkles /> },
-  { no: '02', slug: 'professional-tailoring', name: 'Professional tailoring', text: 'Bring your garment idea and talk through fit, design and finishing.', icon: <Scissors /> },
-  { no: '03', slug: 'embroidery', name: 'Embroidery work', text: 'Ask the team about embroidery styles and garment details.', icon: <Award /> },
-]
-
 function ServicesSection() {
   return <section className="services-section" id="services"><div className="services-top"><SectionIntro label="WHAT WE DO" title="Made for the way you wear it." copy="Every garment starts with a conversation. Visit the shop to discuss the style and service you have in mind." /><Link className="text-link" to="/services">All services <ArrowRight size={15} /></Link></div>
-    <div className="service-cards">{serviceCards.map(card => <Link className="service-card" to={`/services/${card.slug}`} key={card.no}><span className="service-no">{card.no}</span><span className="service-icon">{card.icon}</span><h3>{card.name}</h3><p>{card.text}</p><span className="service-link">Explore <ArrowRight size={15} /></span></Link>)}</div>
-    <p className="service-note">Specific styles and garment requests are best discussed with the team in person.</p>
+    <div className="service-cards">{servicePhotos.map((card, index) => <Link className="service-card" to={`/services/${card.slug}`} key={card.slug}>
+      <span className="service-image"><img src={card.src} alt={card.alt} loading="lazy" style={card.position ? { objectPosition: card.position } : undefined} /></span><span className="service-no">0{index + 1}</span><h3>{card.title}</h3><p>{card.description}</p><span className="service-link">Explore <ArrowRight size={15} /></span>
+    </Link>)}</div>
+    <p className="service-note">These photos are visual references. Ask the team about tailoring options for your request.</p>
+  </section>
+}
+
+function CollectionSection() {
+  return <section className="collection-section" id="collection"><div className="collection-heading"><SectionIntro label="STYLE REFERENCES" title="Ideas for what comes next." copy="A collection of colours, silhouettes and details to help start a design conversation. These licensed photographs are not Renuka Tailors products or completed work." /><Link className="text-link" to="/gallery">View all photographs <ArrowRight size={15} /></Link></div>
+    <PhotoGallery photos={collectionPhotos} label="View larger photo" className="photo-gallery--collection" />
+    <div className="inventory-note"><span className="inventory-mark"><Scissors size={19} /></span><div><strong>Looking for current styles?</strong><p>We don’t publish an online stock catalogue. Call or visit the shop to ask what’s currently available.</p></div><Link className="text-link" to="/contact">Contact the shop <ArrowRight size={15} /></Link></div><a className="image-credit-link" href="/images/IMAGE_CREDITS.md">Image sources and credits <ArrowRight size={12} /></a>
+    <div className="featured-banner" style={{ backgroundImage: `linear-gradient(90deg, rgb(39 23 25 / .79), rgb(39 23 25 / .16)), url("${featuredPhoto.src}")` }}>
+      <div><p className="eyebrow">RENUKA TAILORS · MEERUT</p><h2>Every Detail Tells a Story.</h2><p>Discover timeless styles, intricate detailing and the beauty of thoughtfully crafted women’s wear.</p><Link className="button button-light" to="/services">Explore Our Services <ArrowRight size={15} /></Link></div><span className="featured-caption">Illustrative style reference · Pexels</span>
+    </div>
   </section>
 }
 
 const workSteps = [
-  ['01', 'Share your requirement', 'Tell us what design or tailoring service you need.'],
-  ['02', 'Design & measurements', 'Discuss your design and required measurements with the team.'],
-  ['03', 'Professional stitching', 'The tailoring team works on your garment with care.'],
-  ['04', 'Final review', 'Review the finished work and coordinate collection with the shop.'],
+  ['01', 'Share Your Requirement', 'Tell us the design or tailoring service you have in mind.'],
+  ['02', 'Design and Measurements', 'Discuss the design and measurements with the team.'],
+  ['03', 'Professional Stitching', 'The tailoring team works on your garment with care.'],
+  ['04', 'Final Delivery', 'Review the finished work and coordinate collection with the shop.'],
 ]
 
 function CraftSection() {
   const reasons = [
-    ['1998', 'Experience since 1998', 'A women’s wear business established in Meerut.'],
-    ['✳', 'Professional designers', 'Design support from professional fashion designers.'],
-    ['100+', 'A team of 100+ workers', 'An experienced team supporting the tailoring work.'],
-    ['✂', 'Latest technology machines', 'Modern machines used in the tailoring process.'],
-    ['✺', 'Embroidery expertise', 'The team offers all types of embroidery work.'],
-    ['◇', 'Care in every detail', 'Attention to fit, finish and the garment requirements.'],
+    [<Award size={17} />, 'Established in 1998', 'A women’s wear business founded in Meerut.'],
+    [<Sparkles size={17} />, 'Professional designers', 'Design support from fashion designers.'],
+    [<Users size={17} />, 'A team of 100+', 'An experienced team supporting the work.'],
+    [<Scissors size={17} />, 'Embroidery work', 'Ask the team about embroidery styles and details.'],
   ]
-  return <section className="craft-section" id="craft"><div className="craft-head"><SectionIntro label="THE PROCESS" title="A little care at every step." /><p>Visit or call the shop to discuss your request. Our team will guide you through the next steps.</p></div>
-    <div className="steps-grid">{workSteps.map(([number, title, text]) => <article key={number}><span>{number}</span><h3>{title}</h3><p>{text}</p></article>)}</div>
-    <div className="why-block"><div><p className="eyebrow">WHY RENUKA TAILORS</p><h2>Experience you can<br /><em>talk to in person.</em></h2></div><div className="why-grid">{reasons.map(([icon, title, text]) => <article key={title}><span>{icon}</span><div><h3>{title}</h3><p>{text}</p></div></article>)}</div></div>
-  </section>
-}
-
-const gallery = [
-  { src: photos.embroidery, alt: 'Woman wearing a teal sari with embroidered patterns', title: 'Embroidered sari' },
-  { src: photos.bridal, alt: 'Bride in traditional red and gold attire with jewelry', title: 'Bridal styling' },
-  { src: photos.hero, alt: 'Woman wearing a teal sari in a portrait', title: 'Traditional wear' },
-]
-
-function CollectionSection() {
-  return <section className="collection-section" id="collection"><div className="collection-heading"><SectionIntro label="STYLE REFERENCES" title="A lookbook of ideas." copy="A few images to help start a design conversation. These are licensed reference photographs, not garments made or stocked by Renuka Tailors." /><Link className="text-link" to="/gallery">View lookbook <ArrowRight size={15} /></Link></div>
-    <div className="lookbook-grid">{gallery.map((item, index) => <figure className={`lookbook-item lookbook-${index + 1}`} key={item.title}><img src={item.src} alt={item.alt} loading="lazy" /><figcaption><span>{item.title}</span><small>Style reference</small></figcaption></figure>)}</div>
-    <div className="inventory-note"><span className="inventory-mark"><Scissors size={19} /></span><div><strong>Looking for current styles?</strong><p>We don’t publish an online stock catalogue. Call or visit the shop to ask what’s currently available.</p></div><Link className="text-link" to="/contact">Contact the shop <ArrowRight size={15} /></Link></div>
+  return <section className="craft-section" id="craft">
+    <div className="craft-gallery-section"><div className="craft-head"><SectionIntro label="THE MAKING" title="Behind Every Beautiful Creation" copy="A closer look at stitching, embroidery and the small details that shape a garment." /><p>Illustrative photographs only; these are not images of Renuka Tailors staff or customer orders.</p></div>
+      <PhotoGallery photos={craftPhotos} label="View larger craft photo" className="photo-gallery--craft" />
+    </div>
+    <div className="why-block"><div><p className="eyebrow">WHY RENUKA TAILORS</p><h2>Experience, skill<br /><em>and a personal touch.</em></h2></div><div className="why-grid">{reasons.map(([icon, title, text]) => <article key={String(title)}><span>{icon}</span><div><h3>{title}</h3><p>{text}</p></div></article>)}</div></div>
+    <div className="process-block"><div className="craft-head"><SectionIntro label="OUR PROCESS" title="A little care at every step." /><p>Visit or call the shop to discuss your request. The team will guide you through the next steps.</p></div>
+      <div className="steps-grid">{workSteps.map(([number, title, text]) => <article key={number}><span>{number}</span><h3>{title}</h3><p>{text}</p></article>)}</div>
+    </div>
   </section>
 }
 
 function ReviewsSection() {
-  return <section className="reviews-section" id="reviews"><div className="reviews-copy"><p className="eyebrow">CUSTOMER FEEDBACK</p><h2>Your trust inspires<br /><em>our craft.</em></h2><p>Read or leave an honest review on Google. We don’t publish sample reviews here.</p><a className="button button-outline" href={business.reviewUrl.value} target="_blank" rel="noopener noreferrer">Write a Google review <ArrowRight size={15} /></a></div><div className="feedback-offer"><div className="offer-label">A NOTE FROM THE SHOP</div><h3>Help us do better.</h3><p>Share private feedback directly with the team and receive 5% off your next order. This offer is available for private feedback whether or not you leave a public review.</p><FeedbackForm /></div></section>
+  return <section className="reviews-section" id="reviews"><div className="reviews-copy"><p className="eyebrow">CUSTOMER FEEDBACK</p><h2>Your Trust Inspires<br /><em>Our Craft</em></h2><p>Read or leave an honest review on Google. We don’t publish sample reviews here.</p><a className="button button-outline" href={business.reviewUrl.value} target="_blank" rel="noopener noreferrer">Write a Google Review <ArrowRight size={15} /></a></div><div className="feedback-offer"><div className="offer-label">PRIVATE FEEDBACK · FROM THE SHOP</div><h3>Help us do better.</h3><p>Share private feedback directly with the team and receive 5% off your next order. You can submit private feedback whether or not you leave a public review.</p><FeedbackForm /></div></section>
 }
 
 function ContactStrip() {
@@ -124,7 +118,7 @@ function ContactStrip() {
 }
 
 function HomePage() {
-  return <main><Hero /><FactsStrip /><AboutSection /><ServicesSection /><CraftSection /><CollectionSection /><section className="appointment-band"><div><Clock3 size={22} /><p className="eyebrow">YOUR VISIT, YOUR WAY</p><h2>Let’s talk through<br />what you have in mind.</h2><p>Share your preferred date and request. We’ll prepare a message for the shop so you can confirm it on WhatsApp.</p></div><Link className="button button-light" to="/appointment">Request an appointment <ArrowRight size={15} /></Link></section><ReviewsSection /><ContactStrip /></main>
+  return <main><Hero /><FactsStrip /><AboutSection /><ServicesSection /><CollectionSection /><CraftSection /><section className="appointment-band"><div><Clock3 size={22} /><p className="eyebrow">YOUR VISIT, YOUR WAY</p><h2>Let’s talk through<br />what you have in mind.</h2><p>Share your preferred date and request. We’ll prepare a message for the shop so you can confirm it on WhatsApp.</p></div><Link className="button button-light" to="/appointment">Request an appointment <ArrowRight size={15} /></Link></section><ReviewsSection /><ContactStrip /></main>
 }
 
 function Footer() {

@@ -2,23 +2,23 @@
 
 ## Project review
 
-The existing project is a React 19 and Vite marketing site with React Router. It has business contact data, location links, and privacy/terms pages. The project has no Firebase setup, admin area, inventory store, customer review feed, or appointment API. Forms therefore prepare WhatsApp drafts, and current stock is not fabricated.
+The project is a React 19 and Vite marketing site with React Router. It has business contact data, maps, policy pages, an appointment request form and private feedback form that prepare WhatsApp drafts. There is no Firebase, Firestore, admin, online stock catalogue, customer review feed or appointment API in this repository, so existing contact flows remain client-side and inventory is not fabricated.
 
 ## Phases
 
-1. **Design system and homepage** — complete. Set the cream, burgundy, charcoal, beige and gold palette; update type and navigation; create the new split hero and responsive homepage structure.
-2. **Business content, services and lookbook** — complete. Add verified business details, service and process sections, trust points, locally hosted licensed style-reference photography, image credits and an honest empty inventory note.
-3. **Appointment, reviews and contact paths** — complete. Add the WhatsApp appointment request form, Google review link, independent private-feedback offer, phone/WhatsApp links and map directions. The site does not send or store form data.
-4. **Responsive and production verification** — complete. `npm run build` passes; the public routes were opened, the appointment and feedback drafts and validation were checked, image loads and console output were verified, and the homepage was checked at 1440, 1280, 768 and 375 pixels with no horizontal overflow. Changes are recorded in the next Git checkpoint.
+1. **Design system and homepage** — complete. The homepage now uses the recovered purple-sari hero, burgundy and ivory palette, revised navigation and an editorial responsive layout.
+2. **Business content, services and lookbook** — complete. Added six photo-led service cards, a 12-image reference collection with keyboard-accessible lightbox, featured collection banner, six-photo craft gallery, editorial About content and image-source credits. No reference image is presented as Renuka Tailors inventory, staff or completed work.
+3. **Appointments, reviews and contact paths** — preserved. Appointment requests, direct contact links, the existing Google review URL, and the separate 5% private-feedback WhatsApp draft remain in place.
+4. **Responsive and production verification** — complete after the final visual pass. The production build passes, local image assets load, existing routes are checked, gallery lightbox navigation and responsive layouts are checked, and the hero checksum matches the recovered source image.
 
-## Previous Git checkpoint
+## Git checkpoint
 
-- `f6b6ad0` — simplified Renuka Tailors website.
+The completed redesign is recorded in the latest Git checkpoint after verification.
 
 ## Deployment notes
 
 - Set `VITE_SITE_URL` to the public domain before deployment so canonical URLs and the sitemap use the correct origin.
-- Confirm the phone numbers and WhatsApp availability before publishing.
-- Replace the visual-reference photos with approved shop or garment photos whenever they become available.
+- Confirm phone numbers and WhatsApp availability before publishing.
+- Replace visual-reference photos with approved shop or garment photos when available.
 - There is no online stock catalogue or booking backend in this project. Appointment requests are completed by the customer in WhatsApp.
 - Review the privacy and terms copy before publishing.
