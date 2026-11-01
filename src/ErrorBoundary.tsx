@@ -12,7 +12,7 @@ export class ErrorBoundary extends Component<{ children: ReactNode }, State> {
   }
 
   render() {
-    if (this.state.failed) return <main className="route-placeholder"><p className="eyebrow">RENuka TAILORS · MEERUT</p><h1>We’re preparing<br /><em>this page.</em></h1><p>Please return to the homepage and try again.</p><a className="button button-dark" href="/">Return home</a></main>
+    if (this.state.failed) return <main className="simple-page"><section className="page-intro"><p className="eyebrow">RENUKA TAILORS · MEERUT</p><h1>We couldn’t load this page.</h1><p>Please return to the homepage and try again.</p><a className="button button-primary" href="/">Return home</a></section></main>
     return this.props.children
   }
 }

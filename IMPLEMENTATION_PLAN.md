@@ -1,25 +1,23 @@
-# Renuka Tailors marketing website — implementation plan
+# Renuka Tailors website
 
-## Inspection summary
+## Previous implementation checkpoints
 
-- The workspace contains only an initialized, uncommitted Git repository. There is no application code, package manifest, framework, routing, component library, or image asset to preserve or reuse.
-- Node.js 24 and npm 11 are available. The repository's Git author is configured.
-- The supplied reference uses service navigation, category groupings, a customer journey, an enquiry form, pricing, testimonials, and contact links. Its doorstep tailoring model does not apply to Renuka Tailors' verified physical shop in Meerut.
-- The brief supplies the business name, location, map coordinates and links, and a listed Salwar Kameez Tailoring category. It does not include a storefront photograph, confirmed phone number, hours, approved prices, or genuine reviews.
+- `f98f447` — initial design system and homepage.
+- `af115ad` — original multi-page marketing site.
 
-## Phases
+## Current polish
 
-1. **Design system and homepage — COMPLETE** — created the React/Vite/TypeScript foundation, design system and editorial homepage, including a labeled storefront illustration slot. Verified the production build and mobile navigation; checkpoint `f98f447` records this phase.
-2. **Central content and shared site shell — COMPLETE** — added business, service, pricing, testimonial, gallery, FAQ, hours, delivery and blog data with verification states and a default-on `DEMO_MODE` switch.
-3. **Service pages and lookbook — COMPLETE** — built the service index, seven distinct service landing pages, and a filterable lookbook with an image viewer.
-4. **Pricing, testimonials, FAQ, and blog — COMPLETE** — added searchable/category-filtered pricing, comparison, sample-only reviews, FAQs, and six sample journal articles.
-5. **About, booking, contact, and location — COMPLETE** — added the About, appointment, contact, location, map/directions, draft policy pages, simulated WhatsApp control, and demo hours. Verified required-field and Indian phone validation plus preview-only success behavior.
-6. **SEO, accessibility, and final verification — COMPLETE WITH DOMAIN CONFIGURATION PENDING** — added per-route metadata, canonical/Open Graph tags, verified-only LocalBusiness structured data, robots, and a sitemap generator. Verified production-mode hiding and the sitemap generator using a reserved test domain. A real `VITE_SITE_URL` is still required to generate deployment URLs.
+1. **Simplify the design** — done. Replaced the oversized editorial layout with a restrained ivory, burgundy and charcoal system, shorter copy, a compact mobile menu, and clear phone/directions links.
+2. **Use supplied business details** — done. Added founder Vijay Gautam, established 1998, women’s wear, designers, modern machines, 100+ workers, embroidery, Meerut address and both phone numbers.
+3. **Remove unverified storefront content** — done. Removed invented prices, sample testimonials, stock photography, draft inventory and sample journal posts. The work area stays empty until Renuka Tailors photographs are available.
+4. **Make contact paths clear** — done. Added click-to-call, directions, the supplied Google review link, and a separate private feedback form that prepares a WhatsApp message without storing or sending it automatically.
+5. **Verify and prepare for deployment** — done locally. Production build and TypeScript checks pass; all public routes were checked for sample copy and currency amounts; desktop/mobile navigation was reviewed. Sitemap generation was checked with a reserved test origin and that origin was removed afterward.
 
-## Phase gates
+## Deployment items
 
-- Complete and verify Phase 1 before committing its checkpoint.
-- Proceed sequentially; reuse the components and data contracts created in earlier phases.
-- Do not claim demo data is real. Do not add internal business-management functionality.
-- Do not claim a real storefront photograph is present; replace the marked slot only when an actual shop image is available.
-- The website is built and tested. A deployable sitemap and production canonical origin require the real public domain.
+- Set `VITE_SITE_URL` to the real domain so canonical URLs and sitemap entries use the public origin.
+- Confirm the phone numbers and which number receives WhatsApp messages.
+- Add approved photos of actual garments and embroidery when available.
+- Review the privacy and website terms text before publishing.
+
+The 5% offer in the attached brief is not included because it was not part of the direct request and would commit the business to a promotion.
