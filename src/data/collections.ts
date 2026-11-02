@@ -104,7 +104,7 @@ export const collections: GarmentCollection[] = definitions.map((definition) => 
   photos: specs[definition.slug].map(([id, title, styles], index) => ({
     id,
     title,
-    alt: `Licensed style reference photo ${index + 1}: ${altLabel[definition.slug]}.`,
+    alt: `Photo ${index + 1}: ${altLabel[definition.slug]}.`,
     note: `Pexels photo ${id} · style reference only`,
     src: `/images/collections/${definition.slug}-${String(index + 1).padStart(2, '0')}.jpg`,
     styles,
@@ -113,4 +113,3 @@ export const collections: GarmentCollection[] = definitions.map((definition) => 
 }))
 
 export const collectionStyles: CollectionStyle[] = ['Traditional', 'Modern', 'Bridal', 'Party', 'Embroidery', 'Simple']
-

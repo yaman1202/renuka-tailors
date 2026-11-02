@@ -188,9 +188,9 @@ function ServicesSection() {
 function CollectionSection() {
   return <section className="collection-section" id="collection"><div className="collection-heading"><SectionIntro label="STYLE REFERENCES" title="Ideas for what comes next." copy="Browse by garment to find a shape, colour or detail to discuss. These licensed photographs are visual references, not Renuka Tailors products or completed work." /><Link className="text-link" to="/collections">All collections <ArrowRight size={15} /></Link></div>
     <CollectionEntryGrid compact />
-    <div className="inventory-note"><span className="inventory-mark"><Scissors size={19} /></span><div><strong>Looking for current styles?</strong><p>We don’t publish an online stock catalogue. Call or visit the shop to ask what’s currently available.</p></div><Link className="text-link" to="/contact">Contact the shop <ArrowRight size={15} /></Link></div><a className="image-credit-link" href="/images/IMAGE_CREDITS.md">Photo sources and credits <ArrowRight size={12} /></a>
+    <div className="inventory-note"><span className="inventory-mark"><Scissors size={19} /></span><div><strong>Looking for current styles?</strong><p>We don’t publish an online stock catalogue. Call or visit the shop to ask what’s currently available.</p></div><Link className="text-link" to="/contact">Contact the shop <ArrowRight size={15} /></Link></div>
     <div className="featured-banner" style={{ backgroundImage: `linear-gradient(90deg, rgb(39 23 25 / .79), rgb(39 23 25 / .16)), url("${featuredPhoto.src}")` }}>
-      <div><p className="eyebrow">RENUKA TAILORS · MEERUT</p><h2>Every Detail Tells a Story.</h2><p>Discover timeless styles, intricate detailing and the beauty of thoughtfully crafted women’s wear.</p><Link className="button button-light" to="/services">Explore Our Services <ArrowRight size={15} /></Link></div><span className="featured-caption">Illustrative style reference · Pexels</span>
+      <div><p className="eyebrow">RENUKA TAILORS · MEERUT</p><h2>Every Detail Tells a Story.</h2><p>Discover timeless styles, intricate detailing and the beauty of thoughtfully crafted women’s wear.</p><Link className="button button-light" to="/services">Explore Our Services <ArrowRight size={15} /></Link></div>
     </div>
   </section>
 }

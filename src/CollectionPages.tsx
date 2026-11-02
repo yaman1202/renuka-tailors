@@ -11,7 +11,7 @@ export function CollectionEntryGrid({ compact = false }: { compact?: boolean }) 
       const coverPhoto = collection.photos[collection.slug === 'bridal-wear' ? 3 : 0]
       return <Link className="collection-entry" to={`/collections/${collection.slug}`} key={collection.slug}>
         <span className="collection-entry-image"><img src={coverPhoto.src} alt={coverPhoto.alt} loading="lazy" /></span>
-        <span className="collection-entry-meta"><span>0{index + 1}</span><span>10 style references</span></span>
+        <span className="collection-entry-meta"><span>0{index + 1}</span></span>
         <span className="collection-entry-title">{collection.title}<ArrowRight size={15} aria-hidden="true" /></span>
       </Link>
     })}
@@ -21,7 +21,7 @@ export function CollectionEntryGrid({ compact = false }: { compact?: boolean }) 
 export function CollectionsHubPage() {
   return <main className="simple-page">
     <section className="page-intro"><p className="eyebrow">STYLE REFERENCES</p><h1>Find a starting point.</h1><p>Browse women’s wear references by garment. The photographs are licensed examples to help you describe a style; they are not Renuka Tailors products, stock or finished customer work.</p></section>
-    <section className="page-content collections-hub-content"><CollectionEntryGrid /><p className="image-credit-link-wrap"><a className="image-credit-link" href="/images/IMAGE_CREDITS.md">Photo sources, contributors and dimensions <ArrowRight size={12} /></a></p></section>
+    <section className="page-content collections-hub-content"><CollectionEntryGrid /></section>
   </main>
 }
 
@@ -42,8 +42,7 @@ export function CollectionDetailPage() {
         <button className={selectedStyle === 'All' ? 'is-selected' : ''} type="button" onClick={() => setSelectedStyle('All')} aria-pressed={selectedStyle === 'All'}>All styles</button>
         {styles.map((style) => <button className={selectedStyle === style ? 'is-selected' : ''} type="button" onClick={() => setSelectedStyle(style)} aria-pressed={selectedStyle === style} key={style}>{style}</button>)}
       </div>
-      <PhotoGallery photos={visiblePhotos} label={`View ${collection.title} style reference`} className="photo-gallery--collection-page" />
-      <p className="collection-credit-line">Photography by Pexels contributors. <a href="/images/IMAGE_CREDITS.md">View photo credits</a></p>
+      <PhotoGallery photos={visiblePhotos} label={`View ${collection.title} photo`} className="photo-gallery--collection-page" showNotes={false} />
       <aside className="collection-contact-card"><span className="inventory-mark"><Scissors size={18} /></span><div><strong>Have a look in mind?</strong><p>Bring a reference and talk with the team about the design, fit and finishing you need. Photos shown here are not available to buy.</p></div><Link className="button button-primary" to="/appointment">Plan a visit <ArrowRight size={14} /></Link></aside>
       <nav className="collection-next-links" aria-label="Other garment collections">{collections.filter((item) => item.slug !== collection.slug).map((item) => <Link to={`/collections/${item.slug}`} key={item.slug}>{item.shortTitle}<ArrowRight size={13} /></Link>)}</nav>
       <p className="collection-call-line"><a href={`tel:+91${business.phone.value}`}>Call +91 {business.phone.value}</a> to ask a question before visiting.</p>

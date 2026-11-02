@@ -6,9 +6,10 @@ type PhotoGalleryProps = {
   photos: EditorialPhoto[]
   label?: string
   className?: string
+  showNotes?: boolean
 }
 
-export function PhotoGallery({ photos, label = 'Open image', className = '' }: PhotoGalleryProps) {
+export function PhotoGallery({ photos, label = 'Open image', className = '', showNotes = true }: PhotoGalleryProps) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
   const dialogRef = useRef<HTMLDivElement>(null)
   const triggerRef = useRef<HTMLButtonElement | null>(null)
@@ -47,7 +48,7 @@ export function PhotoGallery({ photos, label = 'Open image', className = '' }: P
       {photos.map((photo, index) => <figure className={`photo-gallery-item photo-gallery-item-${index + 1}`} key={photo.src}>
         <button className="photo-gallery-trigger" type="button" onClick={(event) => { triggerRef.current = event.currentTarget; setSelectedIndex(index) }} aria-label={`${label}: ${photo.title}`}>
           <img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" style={photo.position ? { objectPosition: photo.position } : undefined} />
-          <span className="photo-gallery-caption"><span><strong>{photo.title}</strong><small>{photo.note ?? 'Style reference'}</small></span><Expand size={17} aria-hidden="true" /></span>
+          <span className="photo-gallery-caption"><span><strong>{photo.title}</strong>{showNotes && <small>{photo.note ?? 'Style reference'}</small>}</span><Expand size={17} aria-hidden="true" /></span>
         </button>
       </figure>)}
     </div>
@@ -58,7 +59,7 @@ export function PhotoGallery({ photos, label = 'Open image', className = '' }: P
         <button className="lightbox-nav lightbox-prev" type="button" onClick={() => setSelectedIndex((selectedIndex! - 1 + photos.length) % photos.length)} aria-label="Previous image"><ArrowLeft size={21} /></button>
         <img className="lightbox-image" src={activePhoto.src} alt={activePhoto.alt} />
         <button className="lightbox-nav lightbox-next" type="button" onClick={() => setSelectedIndex((selectedIndex! + 1) % photos.length)} aria-label="Next image"><ArrowRight size={21} /></button>
-        <div className="lightbox-caption"><strong>{activePhoto.title}</strong><span>{activePhoto.note ?? 'Style reference'} · {selectedIndex! + 1} of {photos.length}</span></div>
+        <div className="lightbox-caption"><strong>{activePhoto.title}</strong><span>{showNotes && `${activePhoto.note ?? 'Style reference'} · `}{selectedIndex! + 1} of {photos.length}</span></div>
       </div>
     </div>}
   </>
