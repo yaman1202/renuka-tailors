@@ -27,3 +27,7 @@ The workspace has no product inventory, customer review feed, or appointment bac
 ## Before deployment
 
 Set `VITE_SITE_URL` to the real domain. Confirm the displayed phone numbers and WhatsApp availability. Replace the visual-reference photos with approved Renuka Tailors photos when available. Review the privacy and terms text before publishing.
+
+## Vercel routing and 404 responses
+
+`vercel.json` rewrites only supported React Router URLs to `index.html`, so valid nested pages continue to work on direct access and refresh. Unknown paths fall through to `public/404.html`, which Vercel serves with HTTP 404 and `noindex, nofollow`; the React wildcard route keeps the branded fallback for client-side navigation. When adding, removing, or renaming an application route, update the exact route rewrites in `vercel.json` as well as the sitemap route list in `scripts/generate-sitemap.mjs`.

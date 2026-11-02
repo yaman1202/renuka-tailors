@@ -1,9 +1,39 @@
 
 {
+  "trailingSlash": false,
   "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
+    { "source": "/about", "destination": "/index.html" },
+    { "source": "/services", "destination": "/index.html" },
+    { "source": "/services/womens-wear", "destination": "/index.html" },
+    { "source": "/services/professional-tailoring", "destination": "/index.html" },
+    { "source": "/services/salwar-suits", "destination": "/index.html" },
+    { "source": "/services/saree-blouses", "destination": "/index.html" },
+    { "source": "/services/embroidery", "destination": "/index.html" },
+    { "source": "/services/fashion-design", "destination": "/index.html" },
+    { "source": "/services/lehengas", "destination": "/index.html" },
+    { "source": "/services/gowns-dresses", "destination": "/index.html" },
+    { "source": "/collections", "destination": "/index.html" },
+    { "source": "/collections/blouse", "destination": "/index.html" },
+    { "source": "/collections/lehenga", "destination": "/index.html" },
+    { "source": "/collections/gown", "destination": "/index.html" },
+    { "source": "/collections/salwar-kameez", "destination": "/index.html" },
+    { "source": "/collections/kurti", "destination": "/index.html" },
+    { "source": "/collections/bridal-wear", "destination": "/index.html" },
+    { "source": "/collections/designer-wear", "destination": "/index.html" },
+    { "source": "/collections/suit", "destination": "/index.html" },
+    { "source": "/gallery", "destination": "/index.html" },
+    { "source": "/pricing", "destination": "/index.html" },
+    { "source": "/testimonials", "destination": "/index.html" },
+    { "source": "/faq", "destination": "/index.html" },
+    { "source": "/blog", "destination": "/index.html" },
+    { "source": "/blog/prepare-for-a-blouse-fitting", "destination": "/index.html" },
+    { "source": "/blog/plan-a-tailoring-visit", "destination": "/index.html" },
+    { "source": "/blog/choosing-embroidery-details", "destination": "/index.html" },
+    { "source": "/blog/use-a-style-reference-well", "destination": "/index.html" },
+    { "source": "/appointment", "destination": "/index.html" },
+    { "source": "/contact", "destination": "/index.html" },
+    { "source": "/location", "destination": "/index.html" },
+    { "source": "/privacy", "destination": "/index.html" },
+    { "source": "/terms", "destination": "/index.html" }
   ]
 }
