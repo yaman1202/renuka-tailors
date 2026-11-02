@@ -15,22 +15,22 @@ import { PhotoGallery } from './components/PhotoGallery'
 import { WhatsAppButton } from './components/WhatsAppButton'
 
 function Brand() {
-  return <Link className="brand" to="/" aria-label="Renuka Tailors home"><span className="brand-mark"><Scissors size={19} strokeWidth={1.6} /></span><span><strong>Renuka Tailors</strong><small>MEERUT · EST. 1998</small></span></Link>
+  return <Link className="brand" to="/" aria-label="Renuka Tailors home"><span className="brand-mark"><Scissors size={19} strokeWidth={1.6} /></span><span><strong>Renuka</strong><small>TAILORS · MEERUT</small></span></Link>
 }
 
 function Header() {
   const [open, setOpen] = useState(false)
   const close = () => setOpen(false)
   return <>
-    <div className="announcement">Women’s wear and tailoring in Meerut <span>·</span> Est. 1998</div>
+    <div className="announcement"><span className="announcement-dot" /> WOMEN’S TAILORING <span className="announcement-divider">/</span> MEERUT</div>
     <header className="site-header">
       <Brand />
       <button className="menu-toggle" aria-label={open ? 'Close menu' : 'Open menu'} aria-expanded={open} onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</button>
       <nav className={open ? 'nav-open' : ''} aria-label="Main navigation">
-        <Link to="/#top" onClick={close}>Home</Link><Link to="/#about" onClick={close}>About us</Link>
-        <div className="nav-services"><Link to="/services" onClick={close}>Our services</Link><div className="nav-dropdown"><Link to="/services/womens-wear" onClick={close}>Women’s wear</Link><Link to="/services/salwar-suits" onClick={close}>Salwar suits</Link><Link to="/services/saree-blouses" onClick={close}>Saree blouses</Link><Link to="/services/embroidery" onClick={close}>Embroidery work</Link><Link to="/services/fashion-design" onClick={close}>Design consultation</Link></div></div>
-        <Link to="/#collection" onClick={close}>Collection</Link><Link to="/#craft" onClick={close}>Craftsmanship</Link><Link to="/contact" onClick={close}>Contact</Link>
-        <Link className="nav-contact" to="/appointment" onClick={close}>Book an appointment <ArrowRight size={14} /></Link>
+        <Link to="/about" onClick={close}>About</Link>
+        <div className="nav-services"><Link to="/services" onClick={close}>Services</Link><div className="nav-dropdown"><Link to="/services/womens-wear" onClick={close}>Women’s wear</Link><Link to="/services/salwar-suits" onClick={close}>Salwar suits</Link><Link to="/services/saree-blouses" onClick={close}>Saree blouses</Link><Link to="/services/embroidery" onClick={close}>Embroidery work</Link><Link to="/services/fashion-design" onClick={close}>Design consultation</Link></div></div>
+        <Link to="/pricing" onClick={close}>Pricing</Link><Link to="/gallery" onClick={close}>Lookbook</Link><Link to="/blog" onClick={close}>Journal</Link><Link to="/location" onClick={close}>Visit us</Link>
+        <Link className="nav-contact" to="/appointment" onClick={close}>Plan a visit <ArrowRight size={14} /></Link>
       </nav>
     </header>
   </>
@@ -42,12 +42,17 @@ function SectionIntro({ label, title, copy }: { label: string; title: string; co
 
 function Hero() {
   return <section className="home-hero" id="top">
-    <div className="hero-copy"><p className="eyebrow">RENUKA TAILORS <span>·</span> MEERUT</p><h1>The Art of<br /><em>Perfect Fit.</em></h1>
-      <p className="hero-subtitle">Thoughtfully tailored. Beautifully crafted. Made to complement your style.</p>
-      <div className="hero-actions"><Link className="button button-primary" to="/services">Discover Our Services <ArrowRight size={15} /></Link><Link className="button button-outline" to="/#collection">Explore Our Collection <ArrowRight size={15} /></Link></div>
-      <p className="hero-byline"><span className="byline-rule" /> Women’s wear in Meerut since 1998</p>
+    <div className="hero-image-wrap"><img src={heroPhoto.src} alt={heroPhoto.alt} fetchPriority="high" /></div>
+    <div className="hero-frame" aria-hidden="true" />
+    <p className="hero-meta hero-meta-left">RENUKA TAILORS · MEERUT</p>
+    <p className="hero-meta hero-meta-right">MADE WITH CARE · WORN YOUR WAY</p>
+    <div className="hero-copy"><p className="eyebrow"><span className="byline-rule" /> A MORE PERSONAL KIND OF TAILORING</p><h1>The art of<br /><em>perfect fit.</em></h1>
+      <p className="hero-subtitle"><span>Thoughtfully tailored. Beautifully crafted.</span><span>Made to complement your style.</span></p>
+      <div className="hero-actions"><Link className="button button-primary" to="/services">Discover our services <ArrowRight size={15} /></Link><Link className="button button-outline" to="/#craft">Explore our craft <ArrowRight size={15} /></Link></div>
     </div>
-    <div className="hero-image-wrap"><img src={heroPhoto.src} alt={heroPhoto.alt} fetchPriority="high" /><span className="image-caption">Campaign image · Unsplash</span></div>
+    <p className="hero-side-note" aria-hidden="true">THE FIT IS IN THE DETAILS</p>
+    <p className="hero-index" aria-hidden="true">01 <span>—</span> 04</p>
+    <a className="hero-scroll" href="/#about"><span aria-hidden="true">↓</span> SCROLL TO DISCOVER</a>
   </section>
 }
 
