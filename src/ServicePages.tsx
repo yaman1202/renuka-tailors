@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { business } from './data/business'
 import { collectionPhotos, servicePhotos, type ServicePhoto } from './data/photos'
 import { PhotoGallery } from './components/PhotoGallery'
+import { NotFoundPage } from './components/NotFoundPage'
 
 const legacyServices = [
   { slug: 'professional-tailoring', name: 'Professional tailoring', text: 'Talk through your garment, fit and finishing requirements with the team.' },
@@ -24,7 +25,7 @@ export function ServiceDetailPage() {
   const { category = '' } = useParams()
   const item = servicePhotos.find((service) => category === service.slug)
   const legacy = legacyServices.find((service) => category === service.slug)
-  if (!item && !legacy) return <ServicesIndexPage />
+  if (!item && !legacy) return <NotFoundPage backTo="/services" backLabel="Browse our services" />
   const title = item?.title ?? legacy!.name
   const text = item?.description ?? legacy!.text
   return <main className="simple-page"><section className="page-intro"><p className="eyebrow">RENUKA TAILORS · MEERUT</p><h1>{title}.</h1><p>{text}</p></section><section className={`page-content service-detail-content${item ? '' : ' service-detail-text-only'}`}>

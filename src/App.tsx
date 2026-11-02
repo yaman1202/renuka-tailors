@@ -13,6 +13,7 @@ import { ErrorBoundary } from './ErrorBoundary'
 import { FeedbackForm } from './components/FeedbackForm'
 import { PhotoGallery } from './components/PhotoGallery'
 import { WhatsAppButton } from './components/WhatsAppButton'
+import { NotFoundPage } from './components/NotFoundPage'
 import { CollectionEntryGrid, CollectionDetailPage, CollectionsHubPage } from './CollectionPages'
 
 function Brand() {
@@ -264,6 +265,6 @@ export default function App() {
     <Route path="/location" element={<LocationPage />} />
     <Route path="/privacy" element={<PolicyPage kind="privacy" />} />
     <Route path="/terms" element={<PolicyPage kind="terms" />} />
-    <Route path="*" element={<main className="simple-section"><h1>Page not found</h1><Link className="text-link" to="/">Return home <ArrowRight size={15} /></Link></main>} />
+    <Route path="*" element={<NotFoundPage />} />
   </Routes><Footer /><WhatsAppButton /></ErrorBoundary>
 }

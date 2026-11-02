@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 import { business } from './data/business'
 import { journalArticles } from './data/articles'
 import { FeedbackForm } from './components/FeedbackForm'
+import { NotFoundPage } from './components/NotFoundPage'
 
 const title = (label: string, heading: string, copy: string) => <section className="page-intro"><p className="eyebrow">{label}</p><h1>{heading}</h1><p>{copy}</p></section>
 
@@ -53,7 +54,7 @@ export function BlogPage() {
 export function BlogArticlePage() {
   const { slug = '' } = useParams()
   const article = journalArticles.find((item) => item.slug === slug)
-  if (!article) return <main className="simple-page">{title('THE JOURNAL', 'Article not found.', 'That guide may have moved. Browse the journal for more practical notes.')}<section className="page-content"><Link className="text-link" to="/blog"><ArrowLeft size={15} /> Back to the journal</Link></section></main>
+  if (!article) return <NotFoundPage backTo="/blog" backLabel="Back to the journal" />
 
   return <main className="simple-page journal-article-page">
     <section className="page-intro journal-article-intro">

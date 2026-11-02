@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 import { collections, collectionStyles, type CollectionStyle } from './data/collections'
 import { business } from './data/business'
 import { PhotoGallery } from './components/PhotoGallery'
+import { NotFoundPage } from './components/NotFoundPage'
 
 export function CollectionEntryGrid({ compact = false }: { compact?: boolean }) {
   return <div className={`collection-entry-grid${compact ? ' collection-entry-grid--home' : ''}`}>
@@ -31,7 +32,7 @@ export function CollectionDetailPage() {
   const [selectedStyle, setSelectedStyle] = useState<'All' | CollectionStyle>('All')
   useEffect(() => setSelectedStyle('All'), [slug])
   const styles = useMemo(() => collectionStyles.filter((style) => collection?.photos.some((photo) => photo.styles.includes(style))), [collection])
-  if (!collection) return <CollectionsHubPage />
+  if (!collection) return <NotFoundPage backTo="/collections" backLabel="Browse all collections" />
   const visiblePhotos = selectedStyle === 'All' ? collection.photos : collection.photos.filter((photo) => photo.styles.includes(selectedStyle))
 
   return <main className="simple-page collection-detail-page">

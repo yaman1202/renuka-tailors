@@ -12,9 +12,15 @@ const pages: Record<string, { title: string; description: string }> = {
   '/services/professional-tailoring': { title: 'Professional Tailoring | Renuka Tailors Meerut', description: 'Discuss tailoring, fit and finishing with Renuka Tailors in Meerut.' },
   '/services/embroidery': { title: 'Embroidery Work | Renuka Tailors Meerut', description: 'Ask Renuka Tailors in Meerut about embroidery work and garment details.' },
   '/services/fashion-design': { title: 'Fashion Design | Renuka Tailors Meerut', description: 'Speak with professional fashion designers at Renuka Tailors in Meerut.' },
+  '/services/salwar-suits': { title: 'Salwar Suit Tailoring | Renuka Tailors Meerut', description: 'Discuss salwar suit styles, fabric and finishing with Renuka Tailors in Meerut.' },
+  '/services/saree-blouses': { title: 'Saree Blouse Tailoring | Renuka Tailors Meerut', description: 'Discuss blouse fit, neckline and detailing with Renuka Tailors in Meerut.' },
+  '/services/lehengas': { title: 'Lehenga Tailoring | Renuka Tailors Meerut', description: 'Discuss lehenga design, fit and finishing with Renuka Tailors in Meerut.' },
+  '/services/gowns-dresses': { title: 'Gown and Dress Tailoring | Renuka Tailors Meerut', description: 'Discuss occasion dresses and design options with Renuka Tailors in Meerut.' },
   '/gallery': { title: 'Style References | Renuka Tailors Meerut', description: 'Licensed style-reference photos to help start a design conversation at Renuka Tailors.' },
   '/collections': { title: 'Women’s Wear Collections | Renuka Tailors Meerut', description: 'Browse blouse, lehenga, gown, salwar kameez, kurti, bridal, designer wear and suit style references.' },
   '/pricing': { title: 'Contact for a Quote | Renuka Tailors', description: 'Contact Renuka Tailors in Meerut for current garment and tailoring quotes.' },
+  '/privacy': { title: 'Privacy | Renuka Tailors Meerut', description: 'How Renuka Tailors website forms and third-party links handle information.' },
+  '/terms': { title: 'Website Terms | Renuka Tailors Meerut', description: 'General information about using the Renuka Tailors website.' },
   '/testimonials': { title: 'Customer Feedback | Renuka Tailors', description: 'Leave an honest Google review or send private feedback directly to Renuka Tailors.' },
   '/contact': { title: 'Contact Renuka Tailors | Meerut', description: `Call, visit or prepare a WhatsApp enquiry for Renuka Tailors at ${business.address.value}.` },
   '/location': { title: 'Location | Renuka Tailors, Meerut', description: `Find Renuka Tailors at ${business.address.value}.` },
@@ -31,11 +37,12 @@ export function SeoHead() {
     const collection = collections.find((item) => item.slug === collectionSlug)
     const articleSlug = pathname.match(/^\/blog\/([^/]+)$/)?.[1]
     const article = journalArticles.find((item) => item.slug === articleSlug)
+    const isNotFound = !pages[pathname] && !collection && !article
     const metadata = pages[pathname] ?? (collection
       ? { title: `${collection.title} Style References | Renuka Tailors Meerut`, description: `${collection.intro} Browse licensed visual references from Renuka Tailors in Meerut.` }
       : article
         ? { title: `${article.title} | Journal | Renuka Tailors Meerut`, description: article.summary }
-        : { title: `${business.name.value} | Meerut`, description: 'Women’s wear, professional tailoring and embroidery in Meerut.' })
+        : { title: `Page Not Found | ${business.name.value}`, description: 'The requested page could not be found.' })
     const canonicalUrl = `${canonicalBase}${pathname}`
     document.title = metadata.title
     const setMeta = (selector: string, attribute: string, value: string, create: () => HTMLMetaElement) => {
@@ -48,6 +55,7 @@ export function SeoHead() {
     setMeta('meta[property="og:description"]', 'content', metadata.description, () => Object.assign(document.createElement('meta'), { property: 'og:description' }))
     setMeta('meta[property="og:type"]', 'content', 'website', () => Object.assign(document.createElement('meta'), { property: 'og:type' }))
     setMeta('meta[property="og:url"]', 'content', canonicalUrl, () => Object.assign(document.createElement('meta'), { property: 'og:url' }))
+    setMeta('meta[name="robots"]', 'content', isNotFound ? 'noindex, nofollow' : 'index, follow', () => Object.assign(document.createElement('meta'), { name: 'robots' }))
     let canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]')
     if (!canonical) { canonical = document.createElement('link'); canonical.rel = 'canonical'; document.head.append(canonical) }
     canonical.href = canonicalUrl
