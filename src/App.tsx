@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { ArrowRight, Award, Clock3, MapPin, Menu, Phone, Scissors, Sparkles, Users, X } from 'lucide-react'
-import { Link, Navigate, Route, Routes, useLocation } from 'react-router-dom'
+import { Link, NavLink, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { business } from './data/business'
 import { craftPhotos, featuredPhoto, heroPhoto, servicePhotos } from './data/photos'
 import { ServicesIndexPage, ServiceDetailPage } from './ServicePages'
@@ -21,17 +21,61 @@ function Brand() {
 
 function Header() {
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const headerRef = useRef<HTMLElement>(null)
+  const menuToggleRef = useRef<HTMLButtonElement>(null)
+  const { pathname } = useLocation()
   const close = () => setOpen(false)
+
+  useEffect(() => {
+    setOpen(false)
+  }, [pathname])
+
+  useEffect(() => {
+    const updateScrollState = () => setScrolled(window.scrollY > 8)
+    updateScrollState()
+    window.addEventListener('scroll', updateScrollState, { passive: true })
+    return () => window.removeEventListener('scroll', updateScrollState)
+  }, [])
+
+  useEffect(() => {
+    if (!open) return
+
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    const closeOnOutsideClick = (event: PointerEvent) => {
+      if (event.target instanceof Node && !headerRef.current?.contains(event.target)) close()
+    }
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        close()
+        menuToggleRef.current?.focus()
+      }
+    }
+    const closeOnDesktopResize = () => {
+      if (window.matchMedia('(min-width: 1001px)').matches) close()
+    }
+    document.addEventListener('pointerdown', closeOnOutsideClick)
+    document.addEventListener('keydown', closeOnEscape)
+    window.addEventListener('resize', closeOnDesktopResize)
+    return () => {
+      document.body.style.overflow = previousOverflow
+      document.removeEventListener('pointerdown', closeOnOutsideClick)
+      document.removeEventListener('keydown', closeOnEscape)
+      window.removeEventListener('resize', closeOnDesktopResize)
+    }
+  }, [open])
+
   return <>
     <div className="announcement"><span className="announcement-dot" /> WOMEN’S TAILORING <span className="announcement-divider">/</span> MEERUT</div>
-    <header className="site-header">
+    <header className={`site-header${scrolled ? ' is-scrolled' : ''}`} ref={headerRef}>
       <Brand />
-      <button className="menu-toggle" aria-label={open ? 'Close menu' : 'Open menu'} aria-expanded={open} onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</button>
-      <nav className={open ? 'nav-open' : ''} aria-label="Main navigation">
-        <Link to="/about" onClick={close}>About</Link>
-        <div className="nav-services"><Link to="/services" onClick={close}>Services</Link><div className="nav-dropdown"><Link to="/services/womens-wear" onClick={close}>Women’s wear</Link><Link to="/services/salwar-suits" onClick={close}>Salwar suits</Link><Link to="/services/saree-blouses" onClick={close}>Saree blouses</Link><Link to="/services/embroidery" onClick={close}>Embroidery work</Link><Link to="/services/fashion-design" onClick={close}>Design consultation</Link></div></div>
-        <Link to="/pricing" onClick={close}>Pricing</Link><Link to="/collections" onClick={close}>Collections</Link><Link to="/blog" onClick={close}>Journal</Link><Link to="/location" onClick={close}>Visit us</Link>
-        <Link className="nav-contact" to="/appointment" onClick={close}>Plan a visit <ArrowRight size={14} /></Link>
+      <button ref={menuToggleRef} className={`menu-toggle${open ? ' is-open' : ''}`} aria-label={open ? 'Close navigation menu' : 'Open navigation menu'} aria-expanded={open} aria-controls="primary-navigation" onClick={() => setOpen(!open)}><Menu className="menu-icon" size={23} aria-hidden="true" /><X className="close-icon" size={23} aria-hidden="true" /></button>
+      <nav id="primary-navigation" className={open ? 'nav-open' : ''} aria-label="Main navigation">
+        <NavLink to="/about" onClick={close}>About</NavLink>
+        <div className="nav-services"><NavLink to="/services" onClick={close}>Services</NavLink><div className="nav-dropdown"><Link to="/services/womens-wear" onClick={close}>Women’s wear</Link><Link to="/services/salwar-suits" onClick={close}>Salwar suits</Link><Link to="/services/saree-blouses" onClick={close}>Saree blouses</Link><Link to="/services/embroidery" onClick={close}>Embroidery work</Link><Link to="/services/fashion-design" onClick={close}>Design consultation</Link></div></div>
+        <NavLink to="/pricing" onClick={close}>Pricing</NavLink><NavLink to="/collections" onClick={close}>Collections</NavLink><NavLink to="/blog" end onClick={close}>Journal</NavLink><NavLink to="/location" onClick={close}>Visit us</NavLink>
+        <NavLink className="nav-contact" to="/appointment" onClick={close}>Plan a visit <ArrowRight size={15} aria-hidden="true" /></NavLink>
       </nav>
     </header>
   </>
@@ -43,7 +87,10 @@ function SectionIntro({ label, title, copy }: { label: string; title: string; co
 
 function Hero() {
   return <section className="home-hero" id="top">
-    <div className="hero-image-wrap"><img src={heroPhoto.src} alt={heroPhoto.alt} fetchPriority="high" /></div>
+    <div className="hero-image-wrap"><picture>
+      <source type="image/webp" srcSet={heroPhoto.webpSrcSet} sizes="100vw" />
+      <img src={heroPhoto.src} srcSet={heroPhoto.srcSet} sizes="100vw" width="3456" height="5184" alt={heroPhoto.alt} loading="eager" fetchPriority="high" decoding="async" />
+    </picture></div>
     <div className="hero-frame" aria-hidden="true" />
     <p className="hero-meta hero-meta-left hero-brand"><strong>RENUKA</strong><span>TAILORS <i>·</i> MEERUT</span></p>
     <p className="hero-meta hero-meta-right">MADE WITH CARE · WORN YOUR WAY</p>
@@ -61,7 +108,6 @@ function FactsStrip() {
   const sectionRef = useRef<HTMLElement>(null)
   const [isVisible, setIsVisible] = useState(false)
   const [customers, setCustomers] = useState(0)
-  const [members, setMembers] = useState(0)
 
   useEffect(() => {
     const section = sectionRef.current
@@ -86,11 +132,10 @@ function FactsStrip() {
 
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       setCustomers(10000)
-      setMembers(100)
       return
     }
 
-    const duration = 2500
+    const duration = 2000
     let frame = 0
     let startTime = 0
     const animate = (time: number) => {
@@ -98,7 +143,6 @@ function FactsStrip() {
       const progress = Math.min((time - startTime) / duration, 1)
       const eased = 1 - Math.pow(1 - progress, 4)
       setCustomers(Math.round(10000 * eased))
-      setMembers(Math.round(100 * eased))
       if (progress < 1) frame = requestAnimationFrame(animate)
     }
     frame = requestAnimationFrame(animate)
@@ -109,44 +153,25 @@ function FactsStrip() {
 
   return <section ref={sectionRef} className={`facts-strip${isVisible ? ' is-visible' : ''}`} aria-label="Renuka Tailors in numbers">
     <div className="facts-heading"><span>A LEGACY MEASURED IN TRUST</span><i /></div>
-    <div className="facts-grid">
+    <div className="facts-editorial">
       <article className="stat-card">
-        <svg className="stat-ornament" viewBox="0 0 88 88" aria-hidden="true">
-          <path d="M44 9c5 10 5 10 0 16-5-6-5-6 0-16Zm0 54c5 10 5 10 0 16-5-6-5-6 0-16ZM9 44c10-5 10-5 16 0-6 5-6 5-16 0Zm54 0c10-5 10-5 16 0-6 5-6 5-16 0ZM19 19c11 2 11 2 12 10-8-1-8-1-12-10Zm38 38c11 2 11 2 12 10-8-1-8-1-12-10ZM69 19c-11 2-11 2-12 10 8-1 8-1 12-10ZM31 57c-11 2-11 2-12 10 8-1 8-1 12-10Z" />
-          <circle cx="44" cy="44" r="7" />
-          <path d="M55 54 75 74m-4-24 8 8m-14-2 8 8" />
-        </svg>
         <span className="stat-number" aria-hidden="true"><span>{number(customers)}</span><b>+</b></span>
-        <span className="sr-only">10,000 plus</span>
+        <span className="sr-only">10,000 plus happy customers</span>
         <h2>HAPPY CUSTOMERS</h2>
-        <p>Happily serving more than 10,000 customers.</p>
       </article>
-      <div className="stats-divider" aria-hidden="true">
-        <span />
-        <svg viewBox="0 0 52 52">
-          <path d="M12 40 39 13m-4-2 6 6M13 39c-5 5-8 3-5-2m24-22c5-5 8-3 5 2" />
-          <path d="M26 5c2.5 5 2.5 5 0 8-2.5-3-2.5-3 0-8Zm0 34c2.5 5 2.5 5 0 8-2.5-3-2.5-3 0-8ZM5 26c5-2.5 5-2.5 8 0-3 2.5-3 2.5-8 0Zm34 0c5-2.5 5-2.5 8 0-3 2.5-3 2.5-8 0Z" />
-        </svg>
-        <span />
+      <div className="facts-editorial-copy">
+        <p>Thank you for trusting our craftsmanship and making us part of your style journey.</p>
+        <ul aria-label="Renuka Tailors">
+          <li>Women’s Tailoring</li><li>Personalised Stitching</li><li>Meerut</li>
+        </ul>
       </div>
-      <article className="stat-card">
-        <svg className="stat-ornament" viewBox="0 0 88 88" aria-hidden="true">
-          <path d="M44 9c5 10 5 10 0 16-5-6-5-6 0-16Zm0 54c5 10 5 10 0 16-5-6-5-6-0-16ZM9 44c10-5 10-5 16 0-6 5-6 5-16 0Zm54 0c10-5 10-5 16 0-6 5-6 5-16 0ZM19 19c11 2 11 2 12 10-8-1-8-1-12-10Zm38 38c11 2 11 2 12 10-8-1-8-1-12-10ZM69 19c-11 2-11 2-12 10 8-1 8-1 12-10ZM31 57c-11 2-11 2-12 10 8-1 8-1 12-10Z" />
-          <circle cx="44" cy="44" r="7" />
-          <path d="M55 54 75 74m-4-24 8 8m-14-2 8 8" />
-        </svg>
-        <span className="stat-number" aria-hidden="true"><span>{number(members)}</span><b>+</b></span>
-        <span className="sr-only">100 plus</span>
-        <h2>MEMBERS</h2>
-        <p>A growing boutique community.</p>
-      </article>
     </div>
   </section>
 }
 
 function AboutSection() {
   return <section className="about-section home-boutique-preview" id="about">
-    <figure className="boutique-photo home-boutique-photo"><img src="/images/renuka-tailors-store.jpg" alt="Renuka Tailors storefront with illuminated signage and shop entrance" loading="lazy" /><figcaption>Our boutique · Sadar Bazar, Meerut</figcaption></figure>
+    <figure className="boutique-photo home-boutique-photo"><img src="/images/renuka-tailors-store.jpg" alt="Renuka Tailors storefront with illuminated signage and shop entrance" loading="lazy" /><figcaption>Our Boutique · Sadar Bazar, Meerut</figcaption></figure>
     <div className="about-copy"><p className="eyebrow">ABOUT RENUKA TAILORS</p><h2>A Place Where Every Stitch Tells a Story.</h2><p>At Renuka Tailors, we bring your fashion ideas to life through personalised women's tailoring, creativity and attention to detail. Every outfit is crafted with care to make you feel special.</p><Link className="button button-primary boutique-story-link" to="/about">Discover Our Story <ArrowRight size={15} /></Link></div>
   </section>
 }

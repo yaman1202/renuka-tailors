@@ -4,7 +4,7 @@ The fashion and craft photographs on this site are licensed visual references. T
 
 ## Hero
 
-- `hero-purple-saree.jpg` — original Unsplash image, asset ID `photo-1610030469983-98e550d6193c` ([source image](https://images.unsplash.com/photo-1610030469983-98e550d6193c)); the file checksum matches the recovered original. See the [Unsplash license](https://unsplash.com/license/).
+- `hero-purple-saree-original.jpg` — highest-resolution response available from the Unsplash CDN for asset ID `photo-1610030469983-98e550d6193c` ([source image](https://images.unsplash.com/photo-1610030469983-98e550d6193c)), 3456 × 5184 pixels. This is a genuine source-sized image, not an upscale; the CDN did not return a 3840-pixel-wide source. Responsive WebP derivatives (`hero-purple-saree-{1280,1920,2560,3456}.webp`) are generated from this file. See the [Unsplash license](https://unsplash.com/license/).
 
 ## Collection lookbook
 

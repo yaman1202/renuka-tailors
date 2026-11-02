@@ -58,6 +58,13 @@ export const featuredPhoto: EditorialPhoto = {
 }
 
 export const heroPhoto = {
-  src: '/images/hero-purple-saree.jpg',
+  src: '/images/hero-purple-saree-original.jpg',
+  srcSet: '/images/hero-purple-saree-original.jpg 3456w',
+  webpSrcSet: [
+    '/images/hero-purple-saree-1280.webp 1280w',
+    '/images/hero-purple-saree-1920.webp 1920w',
+    '/images/hero-purple-saree-2560.webp 2560w',
+    '/images/hero-purple-saree-3456.webp 3456w',
+  ].join(', '),
   alt: 'Woman wearing a deep purple sari with gold embroidery and traditional jewellery against a red backdrop',
 }
