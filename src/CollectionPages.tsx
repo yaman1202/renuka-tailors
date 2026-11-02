@@ -7,11 +7,14 @@ import { PhotoGallery } from './components/PhotoGallery'
 
 export function CollectionEntryGrid({ compact = false }: { compact?: boolean }) {
   return <div className={`collection-entry-grid${compact ? ' collection-entry-grid--home' : ''}`}>
-    {collections.map((collection, index) => <Link className="collection-entry" to={`/collections/${collection.slug}`} key={collection.slug}>
-      <span className="collection-entry-image"><img src={collection.photos[0].src} alt={collection.photos[0].alt} loading="lazy" /></span>
-      <span className="collection-entry-meta"><span>0{index + 1}</span><span>10 style references</span></span>
-      <span className="collection-entry-title">{collection.title}<ArrowRight size={15} aria-hidden="true" /></span>
-    </Link>)}
+    {collections.map((collection, index) => {
+      const coverPhoto = collection.photos[collection.slug === 'bridal-wear' ? 3 : 0]
+      return <Link className="collection-entry" to={`/collections/${collection.slug}`} key={collection.slug}>
+        <span className="collection-entry-image"><img src={coverPhoto.src} alt={coverPhoto.alt} loading="lazy" /></span>
+        <span className="collection-entry-meta"><span>0{index + 1}</span><span>10 style references</span></span>
+        <span className="collection-entry-title">{collection.title}<ArrowRight size={15} aria-hidden="true" /></span>
+      </Link>
+    })}
   </div>
 }
 
@@ -47,4 +50,3 @@ export function CollectionDetailPage() {
     </section>
   </main>
 }
-
