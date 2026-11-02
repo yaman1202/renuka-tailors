@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { ArrowRight, Award, Clock3, MapPin, Menu, Phone, Scissors, Sparkles, Users, X } from 'lucide-react'
-import { Link, Route, Routes, useLocation } from 'react-router-dom'
+import { Link, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { business } from './data/business'
-import { aboutPhotos, collectionPhotos, craftPhotos, featuredPhoto, heroPhoto, servicePhotos } from './data/photos'
-import { ServicesIndexPage, ServiceDetailPage, LookbookPage } from './ServicePages'
+import { aboutPhotos, craftPhotos, featuredPhoto, heroPhoto, servicePhotos } from './data/photos'
+import { ServicesIndexPage, ServiceDetailPage } from './ServicePages'
 import { PricingPage, TestimonialsPage, FAQPage, BlogPage, BlogArticlePage } from './InformationPages'
 import { AboutPage, ContactPage, LocationPage } from './StorePages'
 import { BookingPage } from './BookingPage'
@@ -13,6 +13,7 @@ import { ErrorBoundary } from './ErrorBoundary'
 import { FeedbackForm } from './components/FeedbackForm'
 import { PhotoGallery } from './components/PhotoGallery'
 import { WhatsAppButton } from './components/WhatsAppButton'
+import { CollectionEntryGrid, CollectionDetailPage, CollectionsHubPage } from './CollectionPages'
 
 function Brand() {
   return <Link className="brand" to="/" aria-label="Renuka Tailors home"><span className="brand-mark"><Scissors size={19} strokeWidth={1.6} /></span><span><strong>Renuka</strong><small>TAILORS · MEERUT</small></span></Link>
@@ -29,7 +30,7 @@ function Header() {
       <nav className={open ? 'nav-open' : ''} aria-label="Main navigation">
         <Link to="/about" onClick={close}>About</Link>
         <div className="nav-services"><Link to="/services" onClick={close}>Services</Link><div className="nav-dropdown"><Link to="/services/womens-wear" onClick={close}>Women’s wear</Link><Link to="/services/salwar-suits" onClick={close}>Salwar suits</Link><Link to="/services/saree-blouses" onClick={close}>Saree blouses</Link><Link to="/services/embroidery" onClick={close}>Embroidery work</Link><Link to="/services/fashion-design" onClick={close}>Design consultation</Link></div></div>
-        <Link to="/pricing" onClick={close}>Pricing</Link><Link to="/gallery" onClick={close}>Lookbook</Link><Link to="/blog" onClick={close}>Journal</Link><Link to="/location" onClick={close}>Visit us</Link>
+        <Link to="/pricing" onClick={close}>Pricing</Link><Link to="/collections" onClick={close}>Collections</Link><Link to="/blog" onClick={close}>Journal</Link><Link to="/location" onClick={close}>Visit us</Link>
         <Link className="nav-contact" to="/appointment" onClick={close}>Plan a visit <ArrowRight size={14} /></Link>
       </nav>
     </header>
@@ -80,9 +81,9 @@ function ServicesSection() {
 }
 
 function CollectionSection() {
-  return <section className="collection-section" id="collection"><div className="collection-heading"><SectionIntro label="STYLE REFERENCES" title="Ideas for what comes next." copy="A collection of colours, silhouettes and details to help start a design conversation. These licensed photographs are not Renuka Tailors products or completed work." /><Link className="text-link" to="/gallery">View all photographs <ArrowRight size={15} /></Link></div>
-    <PhotoGallery photos={collectionPhotos} label="View larger photo" className="photo-gallery--collection" />
-    <div className="inventory-note"><span className="inventory-mark"><Scissors size={19} /></span><div><strong>Looking for current styles?</strong><p>We don’t publish an online stock catalogue. Call or visit the shop to ask what’s currently available.</p></div><Link className="text-link" to="/contact">Contact the shop <ArrowRight size={15} /></Link></div><a className="image-credit-link" href="/images/IMAGE_CREDITS.md">Image sources and credits <ArrowRight size={12} /></a>
+  return <section className="collection-section" id="collection"><div className="collection-heading"><SectionIntro label="STYLE REFERENCES" title="Ideas for what comes next." copy="Browse by garment to find a shape, colour or detail to discuss. These licensed photographs are visual references, not Renuka Tailors products or completed work." /><Link className="text-link" to="/collections">All collections <ArrowRight size={15} /></Link></div>
+    <CollectionEntryGrid compact />
+    <div className="inventory-note"><span className="inventory-mark"><Scissors size={19} /></span><div><strong>Looking for current styles?</strong><p>We don’t publish an online stock catalogue. Call or visit the shop to ask what’s currently available.</p></div><Link className="text-link" to="/contact">Contact the shop <ArrowRight size={15} /></Link></div><a className="image-credit-link" href="/images/IMAGE_CREDITS.md">Photo sources and credits <ArrowRight size={12} /></a>
     <div className="featured-banner" style={{ backgroundImage: `linear-gradient(90deg, rgb(39 23 25 / .79), rgb(39 23 25 / .16)), url("${featuredPhoto.src}")` }}>
       <div><p className="eyebrow">RENUKA TAILORS · MEERUT</p><h2>Every Detail Tells a Story.</h2><p>Discover timeless styles, intricate detailing and the beauty of thoughtfully crafted women’s wear.</p><Link className="button button-light" to="/services">Explore Our Services <ArrowRight size={15} /></Link></div><span className="featured-caption">Illustrative style reference · Pexels</span>
     </div>
@@ -127,7 +128,7 @@ function HomePage() {
 }
 
 function Footer() {
-  return <footer className="site-footer"><div className="footer-brand"><Brand /><p>Women’s wear and professional tailoring in Meerut, established in 1998.</p></div><div className="footer-column"><strong>Explore</strong><nav aria-label="Footer navigation"><Link to="/about">About us</Link><Link to="/services">Our services</Link><Link to="/gallery">Style references</Link><Link to="/testimonials">Google reviews</Link><Link to="/contact">Contact</Link></nav></div><div className="footer-column footer-contact"><strong>Find the shop</strong><p>{business.address.value}</p><a href={`tel:+91${business.phone.value}`}>+91 99271 44263</a><a href={`tel:+91${business.secondPhone.value}`}>+91 79065 01679</a><a href={business.directionsUrl.value} target="_blank" rel="noopener noreferrer">Google Maps directions <ArrowRight size={13} /></a></div><div className="footer-bottom"><span>© {new Date().getFullYear()} Renuka Tailors, Meerut</span><span><Users size={14} /> Founded by Vijay Gautam</span><nav><Link to="/privacy">Privacy</Link><Link to="/terms">Terms</Link></nav></div></footer>
+  return <footer className="site-footer"><div className="footer-brand"><Brand /><p>Women’s wear and professional tailoring in Meerut, established in 1998.</p></div><div className="footer-column"><strong>Explore</strong><nav aria-label="Footer navigation"><Link to="/about">About us</Link><Link to="/services">Our services</Link><Link to="/collections">Collections</Link><Link to="/blog">Journal</Link><Link to="/testimonials">Google reviews</Link><Link to="/contact">Contact</Link></nav></div><div className="footer-column footer-contact"><strong>Find the shop</strong><p>{business.address.value}</p><a href={`tel:+91${business.phone.value}`}>+91 99271 44263</a><a href={`tel:+91${business.secondPhone.value}`}>+91 79065 01679</a><a href={business.directionsUrl.value} target="_blank" rel="noopener noreferrer">Google Maps directions <ArrowRight size={13} /></a></div><div className="footer-bottom"><span>© {new Date().getFullYear()} Renuka Tailors, Meerut</span><span><Users size={14} /> Founded by Vijay Gautam</span><nav><Link to="/privacy">Privacy</Link><Link to="/terms">Terms</Link></nav></div></footer>
 }
 
 function RouteEffects() {
@@ -145,7 +146,9 @@ export default function App() {
     <Route path="/about" element={<AboutPage />} />
     <Route path="/services" element={<ServicesIndexPage />} />
     <Route path="/services/:category" element={<ServiceDetailPage />} />
-    <Route path="/gallery" element={<LookbookPage />} />
+    <Route path="/collections" element={<CollectionsHubPage />} />
+    <Route path="/collections/:slug" element={<CollectionDetailPage />} />
+    <Route path="/gallery" element={<Navigate to="/collections" replace />} />
     <Route path="/pricing" element={<PricingPage />} />
     <Route path="/testimonials" element={<TestimonialsPage />} />
     <Route path="/faq" element={<FAQPage />} />

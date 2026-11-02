@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import { business } from './data/business'
+import { collections } from './data/collections'
 
 const pages: Record<string, { title: string; description: string }> = {
   '/': { title: "Renuka Tailors | Women's Wear & Tailoring in Meerut", description: 'Established in 1998 by Vijay Gautam. Women’s wear, professional tailoring and embroidery in Meerut.' },
@@ -11,6 +12,7 @@ const pages: Record<string, { title: string; description: string }> = {
   '/services/embroidery': { title: 'Embroidery Work | Renuka Tailors Meerut', description: 'Ask Renuka Tailors in Meerut about embroidery work and garment details.' },
   '/services/fashion-design': { title: 'Fashion Design | Renuka Tailors Meerut', description: 'Speak with professional fashion designers at Renuka Tailors in Meerut.' },
   '/gallery': { title: 'Style References | Renuka Tailors Meerut', description: 'Licensed style-reference photos to help start a design conversation at Renuka Tailors.' },
+  '/collections': { title: 'Women’s Wear Collections | Renuka Tailors Meerut', description: 'Browse blouse, lehenga, gown, salwar kameez, kurti, bridal, designer wear and suit style references.' },
   '/pricing': { title: 'Contact for a Quote | Renuka Tailors', description: 'Contact Renuka Tailors in Meerut for current garment and tailoring quotes.' },
   '/testimonials': { title: 'Customer Feedback | Renuka Tailors', description: 'Leave an honest Google review or send private feedback directly to Renuka Tailors.' },
   '/contact': { title: 'Contact Renuka Tailors | Meerut', description: `Call or visit Renuka Tailors at ${business.address.value}.` },
@@ -24,7 +26,11 @@ export function SeoHead() {
   const { pathname } = useLocation()
   useEffect(() => {
     const canonicalBase = (import.meta.env.VITE_SITE_URL || window.location.origin).replace(/\/$/, '')
-    const metadata = pages[pathname] ?? { title: `${business.name.value} | Meerut`, description: 'Women’s wear, professional tailoring and embroidery in Meerut.' }
+    const collectionSlug = pathname.match(/^\/collections\/([^/]+)$/)?.[1]
+    const collection = collections.find((item) => item.slug === collectionSlug)
+    const metadata = pages[pathname] ?? (collection
+      ? { title: `${collection.title} Style References | Renuka Tailors Meerut`, description: `${collection.intro} Browse licensed visual references from Renuka Tailors in Meerut.` }
+      : { title: `${business.name.value} | Meerut`, description: 'Women’s wear, professional tailoring and embroidery in Meerut.' })
     const canonicalUrl = `${canonicalBase}${pathname}`
     document.title = metadata.title
     const setMeta = (selector: string, attribute: string, value: string, create: () => HTMLMetaElement) => {

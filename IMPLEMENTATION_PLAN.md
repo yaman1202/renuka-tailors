@@ -6,14 +6,15 @@ The project is a React 19 and Vite marketing site with React Router. It has busi
 
 ## Phases
 
-1. **Design system and homepage** — complete. The homepage now uses the recovered purple-sari hero, burgundy and ivory palette, revised navigation and an editorial responsive layout.
-2. **Business content, services and lookbook** — complete. Added six photo-led service cards, a 12-image reference collection with keyboard-accessible lightbox, featured collection banner, six-photo craft gallery, editorial About content and image-source credits. No reference image is presented as Renuka Tailors inventory, staff or completed work.
-3. **Appointments, reviews and contact paths** — preserved. Appointment requests, direct contact links, the existing Google review URL, and the separate 5% private-feedback WhatsApp draft remain in place.
-4. **Responsive and production verification** — complete after the final visual pass. The production build passes, local image assets load, existing routes are checked, gallery lightbox navigation and responsive layouts are checked, and the hero checksum matches the recovered source image.
+1. **Design system and homepage** — complete and checkpointed at `897840d`. The homepage uses the recovered purple-sari hero, burgundy and ivory palette, revised navigation and responsive editorial layout.
+2. **Collections and photo catalog** — implementation complete; checkpoint pending. Added a collection hub and eight category routes, ten distinct references per category, filters, collection metadata and source credits. The existing accessible `PhotoGallery` lightbox is reused, and the homepage links to categories rather than repeating a general gallery.
+3. **About, blog and contact content** — next. Add the supplied customer-count statement, useful article listings and detail pages, and a contact enquiry flow that prepares a WhatsApp draft. Preserve the existing appointment and private-feedback flows.
+4. **Visual system and motion** — queued. Improve readability, contrast, responsive consistency and reduced-motion behavior while preserving the homepage hero composition.
+5. **Real-user QA and final checkpoint** — queued. Build and manually verify routes, filters, lightbox, mobile navigation, forms, contact links and image loading; fix issues and checkpoint the completed phase.
 
 ## Git checkpoint
 
-The completed redesign is recorded in the latest Git checkpoint after verification.
+The homepage phase is recorded at `897840d`. Commit the collection phase after its build and route, filter and keyboard-lightbox checks. Continue with one verified Git checkpoint per implementation phase.
 
 ## Deployment notes
 
@@ -35,12 +36,12 @@ The completed redesign is recorded in the latest Git checkpoint after verificati
 - `package.json` has no test or lint scripts. There is no Firebase SDK, Firebase configuration or database integration in this repository. Existing appointment and feedback flows prepare WhatsApp drafts and do not store submissions.
 - The home hero reference is already implemented and checkpointed as `897840d`; preserve its composition while working on the other phases.
 
-### Remaining phases
+### Current phase status
 
-1. **Collection system and photo catalog** — add a collections landing page and eight data-driven collection routes (blouses, lehengas, gowns, salwar kameez, kurtis, bridal wear, designer wear and suits). Each gallery will have at least ten distinct, category-appropriate, licensed photos, names and concise design details; add working filters and reuse the accessible lightbox. Keep the homepage to category entry points rather than a full product-photo gallery.
-2. **About, blog and contact content** — add the user-supplied 10,000-customer statement to About, create useful article listing/detail routes and working blog-category navigation, and add a contact enquiry form that prepares a WhatsApp draft without sending or storing data automatically.
-3. **Visual system and motion pass** — review type sizes and contrast across every page, align collection/blog pages with the ivory/burgundy design system, add restrained SVG tailoring details and lightweight entrance/hover transitions, and honor reduced-motion preferences. Keep the current hero composition.
-4. **Real-user QA and final checkpoint** — build and manually exercise all route journeys, category filters, lightbox controls, mobile navigation, contact drafts, image loading and crop behavior at desktop, tablet and mobile widths. Fix issues, record actual checks and commit each completed implementation phase.
+- **Collections and photo catalog: complete, pending checkpoint.** `/collections` and eight category pages each contain ten unique photos. Style filters update the visible count, the existing modal gallery supports keyboard navigation and Escape, page titles update by collection, and all 80 local images and metadata records are present. Eighty Pexels sources are credited; 74 originals are at least 4,000 pixels on the long edge. The remaining six are represented at their actual source dimensions and were not upscaled.
+- **About, blog and contact content: queued.** Add the exact user-supplied statement “Happily serving more than 10,000 customers.” Create category-filtered blog cards and useful article detail routes. Add a contact enquiry draft that opens WhatsApp only after the visitor submits the form; do not send or persist data automatically.
+- **Visual system and motion: queued.** Improve type sizes and contrast, keep the ivory and burgundy palette consistent, and honor reduced-motion settings without changing the homepage hero composition.
+- **Real-user QA: queued.** Verify all routes, filters, lightbox controls, contact draft links and existing appointment and feedback paths. Test the responsive experience and record the actual production build result.
 
 ### Image sourcing and accuracy rules
 

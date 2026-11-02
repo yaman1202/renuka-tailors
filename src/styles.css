@@ -655,3 +655,71 @@ h1, h2, h3, p { overflow-wrap: anywhere; }
   .home-hero h1 { font-size: clamp(54px, 12.6vw, 66px); }
   .hero-copy .button { padding-inline: 9px; font-size: 8px; }
 }
+
+/* Garment collection entry points and filtered reference galleries. */
+.collection-entry-grid { margin-top: 12px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+.collection-entry { min-width: 0; color: var(--ink); }
+.collection-entry-image { display: block; aspect-ratio: 4 / 4.7; overflow: hidden; background: var(--beige); }
+.collection-entry-image img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s ease; }
+.collection-entry:hover .collection-entry-image img, .collection-entry:focus-visible .collection-entry-image img { transform: scale(1.025); }
+.collection-entry-meta { margin-top: 12px; display: flex; justify-content: space-between; gap: 8px; color: var(--muted); font-size: 9px; letter-spacing: .07em; text-transform: uppercase; }
+.collection-entry-meta span:first-child { color: #9b7854; }
+.collection-entry-title { margin-top: 6px; display: flex; align-items: center; justify-content: space-between; gap: 8px; font-family: var(--serif); font-size: 20px; }
+.collection-entry-title svg { color: var(--burgundy); transition: transform .2s ease; }
+.collection-entry:hover .collection-entry-title svg { transform: translateX(3px); }
+.collection-section .collection-entry-grid { margin-top: 32px; }
+.collection-section .inventory-note { margin-top: 28px; }
+.collection-detail-intro { position: relative; }
+.back-link { margin-bottom: 28px; display: inline-flex; align-items: center; gap: 7px; color: var(--burgundy); font-size: 11px; }
+.back-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+.collection-detail-content { padding-top: 38px; }
+.collection-filter-heading { margin-bottom: 16px; display: flex; align-items: end; justify-content: space-between; gap: 20px; }
+.collection-filter-heading .eyebrow { margin-bottom: 9px; }
+.collection-filter-heading h2 { margin: 0; color: var(--burgundy); font-family: var(--serif); font-size: clamp(28px, 3vw, 36px); font-weight: 500; }
+.collection-filter-heading>span { color: var(--muted); font-size: 10px; }
+.collection-filters { margin: 0 0 24px; display: flex; flex-wrap: wrap; gap: 8px; }
+.collection-filters button { min-height: 36px; padding: 0 14px; color: #57504b; background: transparent; border: 1px solid #d5c9bd; border-radius: 20px; font: inherit; font-size: 10px; cursor: pointer; transition: background .18s ease, color .18s ease, border-color .18s ease; }
+.collection-filters button:hover { border-color: var(--burgundy); }
+.collection-filters button.is-selected { color: white; background: var(--burgundy); border-color: var(--burgundy); }
+.photo-gallery--collection-page { margin-top: 0; }
+.collection-credit-line { margin: 14px 0 25px; color: var(--muted); font-size: 9px; }
+.collection-credit-line a { color: var(--burgundy); font-weight: 700; }
+.collection-contact-card { padding: 18px 20px; display: flex; align-items: center; gap: 14px; border: 1px solid var(--line); background: var(--cream); }
+.collection-contact-card>div { flex: 1; }
+.collection-contact-card strong { color: var(--ink); font-size: 12px; }
+.collection-contact-card p { margin: 5px 0 0; color: var(--muted); font-size: 10px; line-height: 1.6; }
+.collection-contact-card .button { flex: 0 0 auto; }
+.collection-next-links { margin-top: 28px; padding: 17px 0; display: flex; flex-wrap: wrap; gap: 10px 21px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.collection-next-links a { display: inline-flex; align-items: center; gap: 5px; color: var(--burgundy); font-size: 10px; }
+.collection-call-line { margin: 15px 0 0; color: var(--muted); font-size: 10px; }
+.collection-call-line a { color: var(--burgundy); font-weight: 700; }
+.collections-hub-content { padding-top: 22px; }
+.collections-hub-content .collection-entry-grid { row-gap: 31px; }
+.image-credit-link-wrap { margin: 22px 0 0; }
+.image-credit-link-wrap .image-credit-link { margin-left: 0; }
+
+@media (max-width: 950px) {
+  .collection-entry-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 15px; }
+}
+@media (max-width: 760px) {
+  .collection-entry-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 12px; }
+  .collection-entry-title { font-size: 17px; }
+  .collection-section .collection-entry-grid { margin-top: 20px; }
+  .collection-filter-heading { align-items: flex-start; flex-direction: column; gap: 6px; }
+  .collection-detail-content { padding-top: 27px; }
+  .collection-contact-card { align-items: flex-start; flex-wrap: wrap; padding: 14px; }
+  .collection-contact-card>div { min-width: calc(100% - 50px); }
+  .collection-contact-card .button { margin-left: 50px; }
+  .collection-next-links { gap: 10px 15px; }
+}
+@media (max-width: 420px) {
+  .collection-entry-meta { font-size: 8px; }
+  .collection-entry-title { font-size: 15px; }
+  .collection-entry-title svg { width: 13px; }
+  .collection-filters { gap: 6px; }
+  .collection-filters button { min-height: 34px; padding-inline: 11px; }
+  .collection-contact-card .button { width: calc(100% - 50px); justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .collection-entry-image img, .collection-entry-title svg, .collection-filters button { transition: none; }
+}
