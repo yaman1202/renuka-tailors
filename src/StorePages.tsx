@@ -17,13 +17,13 @@ export function AboutPage() {
 export function LocationPage() {
   return <main className="simple-page">
     <PageIntro label="LOCATION" title="Visit us in Meerut."><p>{business.address.value}</p></PageIntro>
-    <section className="page-content location-content"><div className="location-links"><h2>Renuka Tailors</h2><p>Near Baldev Di Haati, Sadar Chowk Bazar, Meerut, Uttar Pradesh, India.</p><a className="button button-primary" href={business.directionsUrl.value} target="_blank" rel="noreferrer"><MapPin size={16} /> Get directions</a><a className="text-link" href={business.mapsUrl.value} target="_blank" rel="noreferrer">Google Maps listing <ArrowRight size={15} /></a></div><iframe title="Map showing Renuka Tailors in Meerut" loading="lazy" referrerPolicy="no-referrer-when-downgrade" src={`https://www.google.com/maps?q=${business.coordinates.latitude},${business.coordinates.longitude}&z=16&output=embed`} /></section>
+    <section className="page-content location-content"><div className="location-links"><h2>Renuka Tailors</h2><p>{business.address.value}</p><a className="button button-primary" href={business.directionsUrl.value} target="_blank" rel="noreferrer"><MapPin size={16} /> Get directions</a><a className="text-link" href={business.mapsUrl.value} target="_blank" rel="noreferrer">Google Maps listing <ArrowRight size={15} /></a></div><iframe title="Map showing Renuka Tailors in Meerut" loading="lazy" referrerPolicy="no-referrer-when-downgrade" src={`https://www.google.com/maps?q=${business.coordinates.latitude},${business.coordinates.longitude}&z=16&output=embed`} /></section>
   </main>
 }
 
 export function ContactPage() {
   return <main className="simple-page">
-    <PageIntro label="CONTACT" title="Talk to the shop."><p>Call Renuka Tailors or visit us in Sadar Chowk Bazar.</p></PageIntro>
+    <PageIntro label="CONTACT" title="Talk to the shop."><p>Call Renuka Tailors or visit us at {business.address.value}.</p></PageIntro>
     <section className="page-content contact-page-content"><div className="contact-number-list"><a href={`tel:+91${business.phone.value}`}><Phone size={18} /><span><small>PHONE</small>+91 99271 44263</span></a><a href={`tel:+91${business.secondPhone.value}`}><Phone size={18} /><span><small>PHONE</small>+91 79065 01679</span></a><a href={`https://wa.me/${business.whatsapp.value}`} target="_blank" rel="noreferrer"><span><small>WHATSAPP</small>Message the shop</span><ArrowRight size={16} /></a></div><div><h2>Visit us</h2><p>{business.address.value}</p><a className="button button-primary" href={business.directionsUrl.value} target="_blank" rel="noreferrer"><MapPin size={16} /> Get directions</a></div></section>
   </main>
 }

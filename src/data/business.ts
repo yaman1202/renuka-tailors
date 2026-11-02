@@ -5,7 +5,7 @@ export const business = {
   founder: { value: 'Vijay Gautam', status: 'verified' as const },
   established: { value: 1998, status: 'verified' as const },
   category: { value: "Women's wear and professional tailoring", status: 'verified' as const },
-  address: { value: 'Near Baldev Di Haati, Sadar Chowk Bazar, Meerut, Uttar Pradesh, India', status: 'verified' as const },
+  address: { value: '114/3 , Sadar Bazar Merrut cantt', status: 'verified' as const },
   coordinates: { latitude: 28.996372, longitude: 77.6992851, status: 'verified' as const },
   mapsUrl: { value: 'https://www.google.com/maps/place/Renuka+Tailors/@28.996372,77.6967102,17z/data=!4m8!3m7!1s0x390c65a9e22f886b:0x30d9fb8a41185972!8m2!3d28.996372!4d77.6992851!9m1!1b1!16s%2Fg%2F11fy_d9x6w?entry=ttu&g_ep=EgoyMDI2MTAyOC4wIKXMDSoASAFQAw%3D%3D', status: 'verified' as SourceStatus },
   directionsUrl: { value: 'https://www.google.com/maps/dir/?api=1&destination=28.996372,77.6992851', status: 'verified' as SourceStatus },

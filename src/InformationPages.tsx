@@ -18,7 +18,7 @@ export function FAQPage() {
     ['Where is Renuka Tailors?', business.address.value],
     ['Who founded Renuka Tailors?', 'Renuka Tailors was founded by Vijay Gautam and established in 1998.'],
     ['What work does the shop do?', 'Women’s wear, professional tailoring and embroidery work. Contact the shop to discuss a garment.'],
-    ['How do I ask for a quote?', 'Call either of the numbers on the Contact page or visit the shop in Sadar Chowk Bazar.'],
+    ['How do I ask for a quote?', `Call either of the numbers on the Contact page or visit the shop at ${business.address.value}.`],
   ]
   return <main className="simple-page">{title('HELP', 'Common questions.', 'A few details about the shop.')}<section className="page-content faq-list">{questions.map(([question, answer]) => <details key={question}><summary>{question}</summary><p>{answer}</p></details>)}<Link className="text-link" to="/contact">Contact us <ArrowRight size={15} /></Link></section></main>
 }
