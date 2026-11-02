@@ -45,7 +45,7 @@ export const craftPhotos: EditorialPhoto[] = [
 ]
 
 export const aboutPhotos: EditorialPhoto[] = [
-  { src: '/images/about-saree-portrait.webp', alt: 'Portrait of a woman wearing a black sari', title: 'Traditional styling', note: 'Illustrative style reference', position: 'center 35%' },
+  { src: '/images/collection-salwar.webp', alt: 'Woman wearing an embroidered mustard salwar suit', title: 'Traditional styling', note: 'Illustrative style reference', position: 'center 12%' },
   { src: '/images/about-embroidered-fabric.webp', alt: 'Decorative detail on embroidered fabric', title: 'Fabric detail', note: 'Illustrative craft reference', position: 'center' },
 ]
 
