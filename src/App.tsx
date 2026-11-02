@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ArrowRight, Award, Clock3, MapPin, Menu, Phone, Scissors, Sparkles, Users, X } from 'lucide-react'
 import { Link, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { business } from './data/business'
-import { aboutPhotos, craftPhotos, featuredPhoto, heroPhoto, servicePhotos } from './data/photos'
+import { craftPhotos, featuredPhoto, heroPhoto, servicePhotos } from './data/photos'
 import { ServicesIndexPage, ServiceDetailPage } from './ServicePages'
 import { PricingPage, TestimonialsPage, FAQPage, BlogPage, BlogArticlePage } from './InformationPages'
 import { AboutPage, ContactPage, LocationPage } from './StorePages'
@@ -16,7 +16,7 @@ import { WhatsAppButton } from './components/WhatsAppButton'
 import { CollectionEntryGrid, CollectionDetailPage, CollectionsHubPage } from './CollectionPages'
 
 function Brand() {
-  return <Link className="brand" to="/" aria-label="Renuka Tailors home"><span className="brand-mark"><Scissors size={19} strokeWidth={1.6} /></span><span><strong>Renuka</strong><small>TAILORS · MEERUT</small></span></Link>
+  return <Link className="brand" to="/" aria-label="Renuka Tailors home"><span className="brand-wordmark"><strong>RENUKA</strong><small>TAILORS</small></span><span className="brand-city">MEERUT</span></Link>
 }
 
 function Header() {
@@ -45,7 +45,7 @@ function Hero() {
   return <section className="home-hero" id="top">
     <div className="hero-image-wrap"><img src={heroPhoto.src} alt={heroPhoto.alt} fetchPriority="high" /></div>
     <div className="hero-frame" aria-hidden="true" />
-    <p className="hero-meta hero-meta-left">RENUKA TAILORS · MEERUT</p>
+    <p className="hero-meta hero-meta-left hero-brand"><strong>RENUKA</strong><span>TAILORS <i>·</i> MEERUT</span></p>
     <p className="hero-meta hero-meta-right">MADE WITH CARE · WORN YOUR WAY</p>
     <div className="hero-copy"><p className="eyebrow"><span className="byline-rule" /> A MORE PERSONAL KIND OF TAILORING</p><h1>The art of<br /><em>perfect fit.</em></h1>
       <p className="hero-subtitle"><span>Thoughtfully tailored. Beautifully crafted.</span><span>Made to complement your style.</span></p>
@@ -58,16 +58,96 @@ function Hero() {
 }
 
 function FactsStrip() {
-  return <section className="facts-strip" aria-label="Renuka Tailors at a glance"><div><strong>Since 1998</strong><span>Established by Vijay Gautam</span></div><div><strong>100+ workers</strong><span>An experienced tailoring team</span></div><div><strong>Fashion designers</strong><span>Design support at the shop</span></div><div><strong>Embroidery</strong><span>Traditional and detailed work</span></div></section>
+  const sectionRef = useRef<HTMLElement>(null)
+  const [isVisible, setIsVisible] = useState(false)
+  const [customers, setCustomers] = useState(0)
+  const [members, setMembers] = useState(0)
+
+  useEffect(() => {
+    const section = sectionRef.current
+    if (!section) return
+    if (!('IntersectionObserver' in window)) {
+      setIsVisible(true)
+      return
+    }
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsVisible(true)
+        observer.disconnect()
+      }
+    }, { threshold: 0.25 })
+    observer.observe(section)
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    if (!isVisible) return
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setCustomers(10000)
+      setMembers(100)
+      return
+    }
+
+    const duration = 2500
+    let frame = 0
+    let startTime = 0
+    const animate = (time: number) => {
+      if (!startTime) startTime = time
+      const progress = Math.min((time - startTime) / duration, 1)
+      const eased = 1 - Math.pow(1 - progress, 4)
+      setCustomers(Math.round(10000 * eased))
+      setMembers(Math.round(100 * eased))
+      if (progress < 1) frame = requestAnimationFrame(animate)
+    }
+    frame = requestAnimationFrame(animate)
+    return () => cancelAnimationFrame(frame)
+  }, [isVisible])
+
+  const number = (value: number) => value.toLocaleString('en-IN')
+
+  return <section ref={sectionRef} className={`facts-strip${isVisible ? ' is-visible' : ''}`} aria-label="Renuka Tailors in numbers">
+    <div className="facts-heading"><span>A LEGACY MEASURED IN TRUST</span><i /></div>
+    <div className="facts-grid">
+      <article className="stat-card">
+        <svg className="stat-ornament" viewBox="0 0 88 88" aria-hidden="true">
+          <path d="M44 9c5 10 5 10 0 16-5-6-5-6 0-16Zm0 54c5 10 5 10 0 16-5-6-5-6 0-16ZM9 44c10-5 10-5 16 0-6 5-6 5-16 0Zm54 0c10-5 10-5 16 0-6 5-6 5-16 0ZM19 19c11 2 11 2 12 10-8-1-8-1-12-10Zm38 38c11 2 11 2 12 10-8-1-8-1-12-10ZM69 19c-11 2-11 2-12 10 8-1 8-1 12-10ZM31 57c-11 2-11 2-12 10 8-1 8-1 12-10Z" />
+          <circle cx="44" cy="44" r="7" />
+          <path d="M55 54 75 74m-4-24 8 8m-14-2 8 8" />
+        </svg>
+        <span className="stat-number" aria-hidden="true"><span>{number(customers)}</span><b>+</b></span>
+        <span className="sr-only">10,000 plus</span>
+        <h2>HAPPY CUSTOMERS</h2>
+        <p>Happily serving more than 10,000 customers.</p>
+      </article>
+      <div className="stats-divider" aria-hidden="true">
+        <span />
+        <svg viewBox="0 0 52 52">
+          <path d="M12 40 39 13m-4-2 6 6M13 39c-5 5-8 3-5-2m24-22c5-5 8-3 5 2" />
+          <path d="M26 5c2.5 5 2.5 5 0 8-2.5-3-2.5-3 0-8Zm0 34c2.5 5 2.5 5 0 8-2.5-3-2.5-3 0-8ZM5 26c5-2.5 5-2.5 8 0-3 2.5-3 2.5-8 0Zm34 0c5-2.5 5-2.5 8 0-3 2.5-3 2.5-8 0Z" />
+        </svg>
+        <span />
+      </div>
+      <article className="stat-card">
+        <svg className="stat-ornament" viewBox="0 0 88 88" aria-hidden="true">
+          <path d="M44 9c5 10 5 10 0 16-5-6-5-6 0-16Zm0 54c5 10 5 10 0 16-5-6-5-6-0-16ZM9 44c10-5 10-5 16 0-6 5-6 5-16 0Zm54 0c10-5 10-5 16 0-6 5-6 5-16 0ZM19 19c11 2 11 2 12 10-8-1-8-1-12-10Zm38 38c11 2 11 2 12 10-8-1-8-1-12-10ZM69 19c-11 2-11 2-12 10 8-1 8-1 12-10ZM31 57c-11 2-11 2-12 10 8-1 8-1 12-10Z" />
+          <circle cx="44" cy="44" r="7" />
+          <path d="M55 54 75 74m-4-24 8 8m-14-2 8 8" />
+        </svg>
+        <span className="stat-number" aria-hidden="true"><span>{number(members)}</span><b>+</b></span>
+        <span className="sr-only">100 plus</span>
+        <h2>MEMBERS</h2>
+        <p>A growing boutique community.</p>
+      </article>
+    </div>
+  </section>
 }
 
 function AboutSection() {
-  return <section className="about-section" id="about">
-    <div className="about-photo-stack">
-      <figure className="about-image about-image-main"><img src={aboutPhotos[0].src} alt={aboutPhotos[0].alt} loading="lazy" /><figcaption>{aboutPhotos[0].note}</figcaption></figure>
-      <figure className="about-image about-image-detail"><img src={aboutPhotos[1].src} alt={aboutPhotos[1].alt} loading="lazy" /><figcaption>{aboutPhotos[1].note}</figcaption></figure>
-    </div>
-    <div className="about-copy"><p className="eyebrow">ABOUT RENUKA TAILORS</p><h2>Made with care.<br /><em>Worn your way.</em></h2><p>Founded by Vijay Gautam in 1998, Renuka Tailors brings women’s wear and professional tailoring together in Meerut.</p><p>Professional fashion designers, a team of more than 100 workers, latest technology machines and embroidery expertise support the work.</p><div className="about-facts"><span><strong>1998</strong>Established</span><span><strong>100+</strong>Team members</span><span><strong>Meerut</strong>Uttar Pradesh</span></div><Link className="text-link" to="/about">More about us <ArrowRight size={15} /></Link><small className="reference-note">Photographs are illustrative style references.</small></div>
+  return <section className="about-section home-boutique-preview" id="about">
+    <figure className="boutique-photo home-boutique-photo"><img src="/images/renuka-tailors-store.jpg" alt="Renuka Tailors storefront with illuminated signage and shop entrance" loading="lazy" /><figcaption>Our boutique · Sadar Bazar, Meerut</figcaption></figure>
+    <div className="about-copy"><p className="eyebrow">ABOUT RENUKA TAILORS</p><h2>A Place Where Every Stitch Tells a Story.</h2><p>At Renuka Tailors, we bring your fashion ideas to life through personalised women's tailoring, creativity and attention to detail. Every outfit is crafted with care to make you feel special.</p><Link className="button button-primary boutique-story-link" to="/about">Discover Our Story <ArrowRight size={15} /></Link></div>
   </section>
 }
 
