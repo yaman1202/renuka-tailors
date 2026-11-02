@@ -1,6 +1,8 @@
-import { ArrowRight } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { useMemo, useState } from 'react'
+import { ArrowLeft, ArrowRight, Clock3 } from 'lucide-react'
+import { Link, useParams } from 'react-router-dom'
 import { business } from './data/business'
+import { journalArticles } from './data/articles'
 import { FeedbackForm } from './components/FeedbackForm'
 
 const title = (label: string, heading: string, copy: string) => <section className="page-intro"><p className="eyebrow">{label}</p><h1>{heading}</h1><p>{copy}</p></section>
@@ -24,9 +26,49 @@ export function FAQPage() {
 }
 
 export function BlogPage() {
-  return <main className="simple-page">{title('NEWS', 'Updates from the shop.', 'There are no updates to share yet.')}<section className="page-content"><Link className="text-link" to="/">Return home <ArrowRight size={15} /></Link></section></main>
+  const [activeCategory, setActiveCategory] = useState('All articles')
+  const categories = useMemo(() => ['All articles', ...new Set(journalArticles.map((article) => article.category))], [])
+  const articles = activeCategory === 'All articles' ? journalArticles : journalArticles.filter((article) => article.category === activeCategory)
+
+  return <main className="simple-page journal-page">
+    {title('THE JOURNAL', 'Notes for your next visit.', 'Simple guides to help you talk through fit, fabric and finishing with the tailoring team.')}
+    <section className="page-content journal-content">
+      <div className="journal-filters" role="group" aria-label="Filter journal articles">
+        {categories.map((category) => <button type="button" key={category} aria-pressed={activeCategory === category} className={activeCategory === category ? 'is-selected' : ''} onClick={() => setActiveCategory(category)}>{category}</button>)}
+      </div>
+      <p className="journal-result-count" aria-live="polite">{articles.length} {articles.length === 1 ? 'article' : 'articles'}</p>
+      <div className="journal-card-grid">
+        {articles.map((article) => <article className="journal-card" key={article.slug}>
+          <div className="journal-card-meta"><span>{article.category}</span><span><Clock3 size={13} /> {article.minutes} min read</span></div>
+          <h2><Link to={`/blog/${article.slug}`}>{article.title}</Link></h2>
+          <p>{article.summary}</p>
+          <Link className="text-link" to={`/blog/${article.slug}`}>Read the guide <ArrowRight size={15} /></Link>
+        </article>)}
+      </div>
+      <p className="journal-contact-line">Have a question about a garment? <Link to="/contact">Contact the shop <ArrowRight size={14} /></Link></p>
+    </section>
+  </main>
 }
 
 export function BlogArticlePage() {
-  return <BlogPage />
+  const { slug = '' } = useParams()
+  const article = journalArticles.find((item) => item.slug === slug)
+  if (!article) return <main className="simple-page">{title('THE JOURNAL', 'Article not found.', 'That guide may have moved. Browse the journal for more practical notes.')}<section className="page-content"><Link className="text-link" to="/blog"><ArrowLeft size={15} /> Back to the journal</Link></section></main>
+
+  return <main className="simple-page journal-article-page">
+    <section className="page-intro journal-article-intro">
+      <Link className="back-link" to="/blog"><ArrowLeft size={14} /> The journal</Link>
+      <p className="eyebrow">{article.category.toUpperCase()} <span className="article-dot">·</span> {article.minutes} MIN READ</p>
+      <h1>{article.title}</h1>
+      <p>{article.summary}</p>
+    </section>
+    <article className="page-content journal-article-content">
+      {article.sections.map((section) => <section key={section.heading}>
+        <h2>{section.heading}</h2>
+        {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+        {section.points && <ul>{section.points.map((point) => <li key={point}>{point}</li>)}</ul>}
+      </section>)}
+      <div className="journal-article-end"><Link className="text-link" to="/blog"><ArrowLeft size={15} /> More from the journal</Link><Link className="button button-primary" to="/appointment">Plan a visit <ArrowRight size={15} /></Link></div>
+    </article>
+  </main>
 }

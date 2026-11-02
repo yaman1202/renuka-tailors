@@ -8,13 +8,13 @@ The project is a React 19 and Vite marketing site with React Router. It has busi
 
 1. **Design system and homepage** — complete and checkpointed at `897840d`. The homepage uses the recovered purple-sari hero, burgundy and ivory palette, revised navigation and responsive editorial layout.
 2. **Collections and photo catalog** — implementation complete; checkpoint pending. Added a collection hub and eight category routes, ten distinct references per category, filters, collection metadata and source credits. The existing accessible `PhotoGallery` lightbox is reused, and the homepage links to categories rather than repeating a general gallery.
-3. **About, blog and contact content** — next. Add the supplied customer-count statement, useful article listings and detail pages, and a contact enquiry flow that prepares a WhatsApp draft. Preserve the existing appointment and private-feedback flows.
+3. **About, blog and contact content** — implementation complete; checkpoint pending. Added the supplied customer-count statement, four practical articles with category filters and detail routes, and a contact enquiry form that only prepares a WhatsApp draft. Existing appointment and private-feedback flows are preserved.
 4. **Visual system and motion** — queued. Improve readability, contrast, responsive consistency and reduced-motion behavior while preserving the homepage hero composition.
 5. **Real-user QA and final checkpoint** — queued. Build and manually verify routes, filters, lightbox, mobile navigation, forms, contact links and image loading; fix issues and checkpoint the completed phase.
 
 ## Git checkpoint
 
-The homepage phase is recorded at `897840d`. Commit the collection phase after its build and route, filter and keyboard-lightbox checks. Continue with one verified Git checkpoint per implementation phase.
+The homepage phase is recorded at `897840d`; the collection phase is recorded at `6c2ca21`. Commit the About, blog and contact phase after its production build and route and form checks. Continue with one verified Git checkpoint per implementation phase.
 
 ## Deployment notes
 
@@ -39,7 +39,7 @@ The homepage phase is recorded at `897840d`. Commit the collection phase after i
 ### Current phase status
 
 - **Collections and photo catalog: complete, pending checkpoint.** `/collections` and eight category pages each contain ten unique photos. Style filters update the visible count, the existing modal gallery supports keyboard navigation and Escape, page titles update by collection, and all 80 local images and metadata records are present. Eighty Pexels sources are credited; 74 originals are at least 4,000 pixels on the long edge. The remaining six are represented at their actual source dimensions and were not upscaled.
-- **About, blog and contact content: queued.** Add the exact user-supplied statement “Happily serving more than 10,000 customers.” Create category-filtered blog cards and useful article detail routes. Add a contact enquiry draft that opens WhatsApp only after the visitor submits the form; do not send or persist data automatically.
+- **About, blog and contact content: complete, pending checkpoint.** The About page includes the exact statement “Happily serving more than 10,000 customers.” The journal has four practical guides, working category filters and article-specific titles. Contact enquiry data is used only to prepare a WhatsApp draft after visitor submission; the site does not send or persist it. The sitemap now lists article and collection routes.
 - **Visual system and motion: queued.** Improve type sizes and contrast, keep the ivory and burgundy palette consistent, and honor reduced-motion settings without changing the homepage hero composition.
 - **Real-user QA: queued.** Verify all routes, filters, lightbox controls, contact draft links and existing appointment and feedback paths. Test the responsive experience and record the actual production build result.
 

@@ -10,8 +10,13 @@ if (!siteUrl) {
 
 const routes = [
   '/', '/about', '/services', '/services/womens-wear', '/services/professional-tailoring',
-  '/services/embroidery', '/services/fashion-design', '/gallery', '/pricing',
-  '/testimonials', '/faq', '/appointment', '/contact', '/location', '/privacy', '/terms',
+  '/services/salwar-suits', '/services/saree-blouses', '/services/embroidery', '/services/fashion-design',
+  '/collections', '/collections/blouse', '/collections/lehenga', '/collections/gown',
+  '/collections/salwar-kameez', '/collections/kurti', '/collections/bridal-wear',
+  '/collections/designer-wear', '/collections/suit', '/pricing', '/testimonials', '/faq',
+  '/blog', '/blog/prepare-for-a-blouse-fitting', '/blog/plan-a-tailoring-visit',
+  '/blog/choosing-embroidery-details', '/blog/use-a-style-reference-well',
+  '/appointment', '/contact', '/location', '/privacy', '/terms',
 ]
 const urls = routes.map(route => `  <url><loc>${siteUrl}${route}</loc></url>`).join('\n')
 await mkdir('public', { recursive: true })
