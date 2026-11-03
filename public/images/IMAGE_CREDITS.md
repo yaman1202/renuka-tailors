@@ -1,10 +1,13 @@
 # Image credits
 
-The fashion and craft photographs on this site are licensed visual references. They are not Renuka Tailors stock, completed orders, staff or workshop photographs. Photos are stored locally under `public/images` as resized WebP or JPEG files. Pexels photo IDs link to the contributor source pages; credit is provided here and attributions are optional under the [Pexels license](https://www.pexels.com/license/).
+Most fashion and craft photographs on this site are licensed visual references. They are not Renuka Tailors stock, completed orders, staff or workshop photographs. The three slideshow photographs supplied for this site are listed separately below; no external source details were provided. Photos are stored locally under `public/images` as WebP or JPEG files. Pexels photo IDs link to the contributor source pages; credit is provided here and attributions are optional under the [Pexels license](https://www.pexels.com/license/).
 
 ## Hero
 
 - `hero-purple-saree-original.jpg` — highest-resolution response available from the Unsplash CDN for asset ID `photo-1610030469983-98e550d6193c` ([source image](https://images.unsplash.com/photo-1610030469983-98e550d6193c)), 3456 × 5184 pixels. This is a genuine source-sized image, not an upscale; the CDN did not return a 3840-pixel-wide source. Responsive WebP derivatives (`hero-purple-saree-{1280,1920,2560,3456}.webp`) are generated from this file. See the [Unsplash license](https://unsplash.com/license/).
+- `hero-slideshow/bridal-red-upright.jpg` — supplied for this site; source 1536 × 1024 pixels, rotated into upright viewing orientation.
+- `hero-slideshow/bridal-yellow-upright.jpg` — supplied for this site; source 1358 × 1158 pixels, rotated into upright viewing orientation.
+- `hero-slideshow/child-ethnic-wear.jpg` — supplied for this site; 1199 × 1312 pixels.
 
 ## Collection lookbook
 

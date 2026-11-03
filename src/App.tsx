@@ -20,6 +20,29 @@ function Brand() {
   return <Link className="brand" to="/" aria-label="Renuka Tailors home"><span className="brand-wordmark"><strong>RENUKA</strong><small>TAILORS</small></span><span className="brand-city">MEERUT</span></Link>
 }
 
+const heroSlideshowPhotos = [
+  {
+    src: '/images/collections/bridal-wear-09.jpg',
+    alt: 'Bride wearing a coral bridal outfit and traditional jewellery',
+    objectPosition: 'center 35%',
+  },
+  {
+    src: '/images/hero-slideshow/bridal-red-upright.jpg',
+    alt: 'Bride wearing a red embroidered lehenga with traditional jewellery',
+    objectPosition: 'center top',
+  },
+  {
+    src: '/images/hero-slideshow/bridal-yellow-upright.jpg',
+    alt: 'Woman wearing a yellow embroidered festive outfit',
+    objectPosition: 'center top',
+  },
+  {
+    src: '/images/hero-slideshow/child-ethnic-wear.jpg',
+    alt: 'Child wearing a white embroidered ethnic outfit',
+    objectPosition: 'center 20%',
+  },
+]
+
 function Header() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -87,11 +110,70 @@ function SectionIntro({ label, title, copy }: { label: string; title: string; co
 }
 
 function Hero() {
+  const [slideState, setSlideState] = useState<{ active: number; previous: number | null }>({ active: 0, previous: null })
+  const [openingPhotoLoaded, setOpeningPhotoLoaded] = useState(false)
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+  const openingPhotoRef = useRef<HTMLImageElement>(null)
+  const activeSlide = slideState.active
+  const previousSlide = slideState.previous
+
+  useEffect(() => {
+    const openingPhoto = openingPhotoRef.current
+    if (openingPhoto?.complete && openingPhoto.naturalWidth > 0) setOpeningPhotoLoaded(true)
+  }, [])
+
+  useEffect(() => {
+    const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const updateMotionPreference = () => {
+      setPrefersReducedMotion(motionPreference.matches)
+      if (motionPreference.matches) setSlideState({ active: 0, previous: null })
+    }
+    motionPreference.addEventListener('change', updateMotionPreference)
+    return () => motionPreference.removeEventListener('change', updateMotionPreference)
+  }, [])
+
+  useEffect(() => {
+    if (prefersReducedMotion || !openingPhotoLoaded) return
+    const slideCount = heroSlideshowPhotos.length + 1
+    const interval = window.setInterval(() => {
+      setSlideState((currentState) => ({
+        active: (currentState.active + 1) % slideCount,
+        previous: currentState.active,
+      }))
+    }, 5000)
+    return () => window.clearInterval(interval)
+  }, [openingPhotoLoaded, prefersReducedMotion])
+
+  useEffect(() => {
+    if (prefersReducedMotion || activeSlide >= heroSlideshowPhotos.length) return
+    const upcomingPhoto = heroSlideshowPhotos[activeSlide]
+    const preload = new Image()
+    preload.decoding = 'async'
+    preload.src = upcomingPhoto.src
+  }, [activeSlide, prefersReducedMotion])
+
   return <section className="home-hero" id="top">
-    <div className="hero-image-wrap"><picture>
+    <div className="hero-image-wrap"><picture className={activeSlide === 0 ? '' : 'is-hidden'} aria-hidden={activeSlide !== 0}>
       <source type="image/webp" srcSet={heroPhoto.webpSrcSet} sizes="100vw" />
-      <img src={heroPhoto.src} srcSet={heroPhoto.srcSet} sizes="100vw" width="3456" height="5184" alt={heroPhoto.alt} loading="eager" fetchPriority="high" decoding="async" />
-    </picture></div>
+      <img ref={openingPhotoRef} src={heroPhoto.src} srcSet={heroPhoto.srcSet} sizes="100vw" width="3456" height="5184" alt={heroPhoto.alt} loading="eager" fetchPriority="high" decoding="async" onLoad={() => setOpeningPhotoLoaded(true)} />
+    </picture>
+      {heroSlideshowPhotos.map((photo, index) => {
+        const slideNumber = index + 1
+        const nextSlide = (activeSlide + 1) % (heroSlideshowPhotos.length + 1)
+        const isActive = activeSlide === slideNumber
+        const shouldLoad = !prefersReducedMotion && (isActive || previousSlide === slideNumber || nextSlide === slideNumber)
+        return <img
+          key={photo.src}
+          className={`hero-slideshow-image${isActive ? ' is-active' : ''}`}
+          src={shouldLoad ? photo.src : undefined}
+          alt={photo.alt}
+          aria-hidden={!isActive}
+          loading="eager"
+          decoding="async"
+          style={{ objectPosition: photo.objectPosition }}
+        />
+      })}
+    </div>
     <div className="hero-frame" aria-hidden="true" />
     <p className="hero-meta hero-meta-left hero-brand"><strong>RENUKA</strong><span>TAILORS <i>·</i> MEERUT</span></p>
     <p className="hero-meta hero-meta-right">MADE WITH CARE · WORN YOUR WAY</p>
@@ -100,7 +182,7 @@ function Hero() {
       <div className="hero-actions"><Link className="button button-primary" to="/services">Discover our services <ArrowRight size={15} /></Link><Link className="button button-outline" to="/#craft">Explore our craft <ArrowRight size={15} /></Link></div>
     </div>
     <p className="hero-side-note" aria-hidden="true">THE FIT IS IN THE DETAILS</p>
-    <p className="hero-index" aria-hidden="true">01 <span>—</span> 04</p>
+    <p className="hero-index" aria-hidden="true">{String(activeSlide + 1).padStart(2, '0')} <span>—</span> {String(heroSlideshowPhotos.length + 1).padStart(2, '0')}</p>
     <a className="hero-scroll" href="/#about"><span aria-hidden="true">↓</span> SCROLL TO DISCOVER</a>
   </section>
 }
