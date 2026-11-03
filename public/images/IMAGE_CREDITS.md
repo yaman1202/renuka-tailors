@@ -1,6 +1,6 @@
 # Image credits
 
-Most fashion and craft photographs on this site are licensed visual references. They are not Renuka Tailors stock, completed orders, staff or workshop photographs. The three slideshow photographs supplied for this site are listed separately below; no external source details were provided. Photos are stored locally under `public/images` as WebP or JPEG files. Pexels photo IDs link to the contributor source pages; credit is provided here and attributions are optional under the [Pexels license](https://www.pexels.com/license/).
+Most fashion and craft photographs on this site are licensed visual references. They are not Renuka Tailors stock, completed orders, staff or workshop photographs. The four slideshow photographs and one founder photograph supplied for this site are listed separately below; no external source details were provided. Photos are stored locally under `public/images` as WebP or JPEG files. Pexels photo IDs link to the contributor source pages; credit is provided here and attributions are optional under the [Pexels license](https://www.pexels.com/license/).
 
 ## Hero
 
@@ -8,6 +8,8 @@ Most fashion and craft photographs on this site are licensed visual references. 
 - `hero-slideshow/bridal-red-upright.jpg` — supplied for this site; source 1536 × 1024 pixels, rotated into upright viewing orientation.
 - `hero-slideshow/bridal-yellow-upright.jpg` — supplied for this site; source 1358 × 1158 pixels, rotated into upright viewing orientation.
 - `hero-slideshow/child-ethnic-wear.jpg` — supplied for this site; 1199 × 1312 pixels.
+- `hero-slideshow/bridal-ivory-upright.jpg` — supplied for this site; source 1536 × 1024 pixels, rotated into upright viewing orientation.
+- `founder/vijay-gautam-portrait.jpg` — supplied for this site; original 1199 × 1312 pixels, copied without resizing or edits.
 
 ## Collection lookbook
 

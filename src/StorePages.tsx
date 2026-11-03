@@ -10,6 +10,19 @@ function PageIntro({ label, title, children }: { label: string; title: string; c
 export function AboutPage() {
   return <main className="simple-page">
     <PageIntro label="ABOUT RENUKA TAILORS" title="Women’s wear and tailoring in Meerut."><p>Founded by Vijay Gautam in 1998. Happily serving more than 10,000 customers.</p></PageIntro>
+    <section className="founder-profile" aria-labelledby="founder-profile-heading">
+      <figure className="founder-profile-photo">
+        <img src="/images/founder/vijay-gautam-portrait.jpg" alt="Vijay Gautam pictured with a woman in traditional attire" width="1199" height="1312" loading="lazy" decoding="async" />
+        <figcaption>Renuka Tailors · Meerut</figcaption>
+      </figure>
+      <div className="founder-profile-copy">
+        <p className="eyebrow">THE FOUNDER</p>
+        <h2 id="founder-profile-heading">Vijay Gautam</h2>
+        <p className="founder-profile-role">Owner &amp; Founder, Renuka Tailors</p>
+        <p>Founded in Meerut in 1998, Renuka Tailors brings women’s wear, personal tailoring and embroidery together with care and attention to detail.</p>
+        <p>Renuka Tailors is committed to quality tailoring, thoughtful craftsmanship and customer satisfaction, with care given to fit, finishing and service.</p>
+      </div>
+    </section>
     <section className="page-content boutique-page-content">
       <figure className="boutique-photo boutique-editorial-photo"><img src="/images/renuka-tailors-store.jpg" alt="Renuka Tailors storefront with illuminated signage and shop entrance" loading="lazy" /><figcaption>Renuka Tailors · Sadar Bazar, Meerut</figcaption></figure>
       <div className="about-page-copy boutique-page-copy"><p className="eyebrow">OUR BOUTIQUE</p><h2>More Than a Boutique, A Place for Creativity and Craftsmanship.</h2><p>Step into Renuka Tailors, where personalised women's tailoring meets creativity and craftsmanship. Our boutique is dedicated to creating outfits with care, attention to detail and a passion for beautiful designs.</p>

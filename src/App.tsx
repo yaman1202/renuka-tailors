@@ -41,6 +41,11 @@ const heroSlideshowPhotos = [
     alt: 'Child wearing a white embroidered ethnic outfit',
     objectPosition: 'center 20%',
   },
+  {
+    src: '/images/hero-slideshow/bridal-ivory-upright.jpg',
+    alt: 'Bride wearing an ivory embroidered wedding outfit',
+    objectPosition: 'center top',
+  },
 ]
 
 function Header() {
@@ -117,9 +122,17 @@ function Hero() {
   const activeSlide = slideState.active
   const previousSlide = slideState.previous
 
+  const markOpeningPhotoReady = () => {
+    const openingPhoto = openingPhotoRef.current
+    if (!openingPhoto) return
+    void openingPhoto.decode().then(() => setOpeningPhotoLoaded(true)).catch(() => {
+      if (openingPhoto.complete && openingPhoto.naturalWidth > 0) setOpeningPhotoLoaded(true)
+    })
+  }
+
   useEffect(() => {
     const openingPhoto = openingPhotoRef.current
-    if (openingPhoto?.complete && openingPhoto.naturalWidth > 0) setOpeningPhotoLoaded(true)
+    if (openingPhoto?.complete && openingPhoto.naturalWidth > 0) markOpeningPhotoReady()
   }, [])
 
   useEffect(() => {
@@ -152,19 +165,21 @@ function Hero() {
     preload.src = upcomingPhoto.src
   }, [activeSlide, prefersReducedMotion])
 
+  const nextSlide = (activeSlide + 1) % (heroSlideshowPhotos.length + 1)
+
   return <section className="home-hero" id="top">
     <div className="hero-image-wrap"><picture className={activeSlide === 0 ? '' : 'is-hidden'} aria-hidden={activeSlide !== 0}>
       <source type="image/webp" srcSet={heroPhoto.webpSrcSet} sizes="100vw" />
-      <img ref={openingPhotoRef} src={heroPhoto.src} srcSet={heroPhoto.srcSet} sizes="100vw" width="3456" height="5184" alt={heroPhoto.alt} loading="eager" fetchPriority="high" decoding="async" onLoad={() => setOpeningPhotoLoaded(true)} />
+      <img ref={openingPhotoRef} src={heroPhoto.src} srcSet={heroPhoto.srcSet} sizes="100vw" width="3456" height="5184" alt={heroPhoto.alt} loading="eager" fetchPriority="high" decoding="sync" onLoad={markOpeningPhotoReady} />
     </picture>
       {heroSlideshowPhotos.map((photo, index) => {
         const slideNumber = index + 1
-        const nextSlide = (activeSlide + 1) % (heroSlideshowPhotos.length + 1)
         const isActive = activeSlide === slideNumber
-        const shouldLoad = !prefersReducedMotion && (isActive || previousSlide === slideNumber || nextSlide === slideNumber)
+        const isPrevious = previousSlide === slideNumber
+        const shouldLoad = !prefersReducedMotion && (isActive || isPrevious || nextSlide === slideNumber)
         return <img
           key={photo.src}
-          className={`hero-slideshow-image${isActive ? ' is-active' : ''}`}
+          className={`hero-slideshow-image${isActive ? ' is-active' : ''}${isPrevious ? ' is-previous' : ''}`}
           src={shouldLoad ? photo.src : undefined}
           alt={photo.alt}
           aria-hidden={!isActive}
