@@ -9,12 +9,13 @@ The project is a React 19 and Vite marketing site with React Router. It has busi
 1. **Design system and homepage** — complete and checkpointed at `897840d`. The homepage uses the recovered purple-sari hero, burgundy and ivory palette, revised navigation and responsive editorial layout.
 2. **Collections and photo catalog** — complete and checkpointed at `6c2ca21`. Added a collection hub and eight category routes, ten distinct references per category, filters, collection metadata and source credits. The existing accessible `PhotoGallery` lightbox is reused, and the homepage links to categories rather than repeating a general gallery.
 3. **About, blog and contact content** — complete and checkpointed at `b802f6d`. Added the supplied customer-count statement, four practical articles with category filters and detail routes, and a contact enquiry form that only prepares a WhatsApp draft. Existing appointment and private-feedback flows are preserved.
-4. **Visual system and motion** — implementation complete; checkpoint pending. Improved small text sizes and contrast for ordinary reading, tuned responsive navigation and collection controls, and kept reduced-motion behavior and the homepage hero composition.
-5. **Real-user QA and final checkpoint** — queued. Build and manually verify routes, filters, lightbox, mobile navigation, forms, contact links and image loading; fix issues and checkpoint the completed phase.
+4. **Visual system and motion** — complete and checkpointed at `1c9c604`. Improved small text sizes and contrast for ordinary reading, tuned responsive navigation and collection controls, and kept reduced-motion behavior and the homepage hero composition.
+5. **Hero slideshow** — next. Keep the current hero image as slide one on every fresh visit. Add the user-provided ethnic-wear photos and an existing bridal reference behind the stable hero copy, with a five-second interval, gentle crossfade, restrained zoom, next-image preload and reduced-motion support.
+6. **Real-user QA and final checkpoint** — queued. Build and manually verify routes, filters, lightbox, slideshow, mobile navigation, forms, contact links and image loading; fix issues and checkpoint the completed phase.
 
 ## Git checkpoint
 
-The homepage phase is recorded at `897840d`, collections at `6c2ca21`, and About, Journal and Contact at `b802f6d`. Add one verified Git checkpoint for the visual pass, then complete and checkpoint final route and contact-path QA.
+The homepage phase is recorded at `897840d`, collections at `6c2ca21`, About, Journal and Contact at `b802f6d`, and the visual pass at `1c9c604`. Checkpoint the slideshow and the final route and contact-path QA.
 
 ## Deployment notes
 
@@ -40,8 +41,9 @@ The homepage phase is recorded at `897840d`, collections at `6c2ca21`, and About
 
 - **Collections and photo catalog: complete (`6c2ca21`).** `/collections` and eight category pages each contain ten unique photos. Style filters update the visible count, the existing modal gallery supports keyboard navigation and Escape, page titles update by collection, and all 80 local images and metadata records are present. Eighty Pexels sources are credited; 74 originals are at least 4,000 pixels on the long edge. The remaining six are represented at their actual source dimensions and were not upscaled.
 - **About, blog and contact content: complete (`b802f6d`).** The About page includes the exact statement “Happily serving more than 10,000 customers.” The journal has four practical guides, working category filters and article-specific titles. Contact enquiry data is used only to prepare a WhatsApp draft after visitor submission; the site does not send or persist it. The sitemap now lists article and collection routes.
-- **Visual system and motion: complete, pending checkpoint.** Readability and contrast are improved while keeping the ivory and burgundy palette. Tested at desktop, 820 px tablet and 390 px phone widths without horizontal overflow on the homepage, collections and contact pages. Mobile navigation opens, follows a link and closes. Reduced-motion CSS remains enabled.
-- **Real-user QA: queued.** Verify all routes, filters, lightbox controls, contact draft links and existing appointment and feedback paths. Test the responsive experience and record the actual production build result.
+- **Visual system and motion: complete (`1c9c604`).** Readability and contrast are improved while keeping the ivory and burgundy palette. Tested at desktop, 820 px tablet and 390 px phone widths without horizontal overflow on the homepage, collections and contact pages. Mobile navigation opens, follows a link and closes. Reduced-motion CSS remains enabled.
+- **Hero slideshow: queued.** Preserve the opening hero photo and its crop, then transition every five seconds through the approved secondary images. Keep the copy and layout stable and show the first image without motion when reduced motion is requested.
+- **Real-user QA: queued.** Verify all routes, filters, lightbox controls, slideshow timing and reduced-motion behavior, contact draft links and existing appointment and feedback paths. Test the responsive experience and record the production build result.
 
 ### Image sourcing and accuracy rules
 
