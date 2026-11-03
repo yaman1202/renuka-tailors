@@ -25,21 +25,25 @@ const heroSlideshowPhotos = [
     src: '/images/hero-slideshow/bridal-red-upright.jpg',
     alt: 'Bride wearing a red embroidered lehenga with traditional jewellery',
     objectPosition: 'center top',
+    desktopClass: '',
   },
   {
     src: '/images/hero-slideshow/bridal-yellow-upright.jpg',
     alt: 'Woman wearing a yellow embroidered festive outfit',
     objectPosition: 'center top',
+    desktopClass: '',
   },
   {
     src: '/images/hero-slideshow/child-ethnic-wear.jpg',
     alt: 'Child wearing a white embroidered ethnic outfit',
     objectPosition: 'center 20%',
+    desktopClass: 'hero-slideshow-image-child',
   },
   {
     src: '/images/hero-slideshow/bridal-ivory-upright.jpg',
     alt: 'Bride wearing an ivory embroidered wedding outfit',
     objectPosition: 'center top',
+    desktopClass: 'hero-slideshow-image-last',
   },
 ]
 
@@ -174,7 +178,7 @@ function Hero() {
         const shouldLoad = !prefersReducedMotion && (isActive || isPrevious || nextSlide === slideNumber)
         return <img
           key={photo.src}
-          className={`hero-slideshow-image${index === heroSlideshowPhotos.length - 1 ? ' hero-slideshow-image-last' : ''}${isActive ? ' is-active' : ''}${isPrevious ? ' is-previous' : ''}`}
+          className={`hero-slideshow-image${photo.desktopClass ? ` ${photo.desktopClass}` : ''}${isActive ? ' is-active' : ''}${isPrevious ? ' is-previous' : ''}`}
           src={shouldLoad ? photo.src : undefined}
           alt={photo.alt}
           aria-hidden={!isActive}
