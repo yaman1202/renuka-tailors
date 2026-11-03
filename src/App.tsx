@@ -22,11 +22,6 @@ function Brand() {
 
 const heroSlideshowPhotos = [
   {
-    src: '/images/collections/bridal-wear-09.jpg',
-    alt: 'Bride wearing a coral bridal outfit and traditional jewellery',
-    objectPosition: 'center 35%',
-  },
-  {
     src: '/images/hero-slideshow/bridal-red-upright.jpg',
     alt: 'Bride wearing a red embroidered lehenga with traditional jewellery',
     objectPosition: 'center top',
@@ -168,7 +163,7 @@ function Hero() {
   const nextSlide = (activeSlide + 1) % (heroSlideshowPhotos.length + 1)
 
   return <section className="home-hero" id="top">
-    <div className="hero-image-wrap"><picture className={activeSlide === 0 ? '' : 'is-hidden'} aria-hidden={activeSlide !== 0}>
+    <div className="hero-image-wrap"><picture className={`${activeSlide === 0 ? 'is-active' : 'is-hidden'}${activeSlide !== 0 && previousSlide === 0 ? ' is-previous' : ''}`} aria-hidden={activeSlide !== 0}>
       <source type="image/webp" srcSet={heroPhoto.webpSrcSet} sizes="100vw" />
       <img ref={openingPhotoRef} src={heroPhoto.src} srcSet={heroPhoto.srcSet} sizes="100vw" width="3456" height="5184" alt={heroPhoto.alt} loading="eager" fetchPriority="high" decoding="sync" onLoad={markOpeningPhotoReady} />
     </picture>
@@ -179,7 +174,7 @@ function Hero() {
         const shouldLoad = !prefersReducedMotion && (isActive || isPrevious || nextSlide === slideNumber)
         return <img
           key={photo.src}
-          className={`hero-slideshow-image${isActive ? ' is-active' : ''}${isPrevious ? ' is-previous' : ''}`}
+          className={`hero-slideshow-image${index === heroSlideshowPhotos.length - 1 ? ' hero-slideshow-image-last' : ''}${isActive ? ' is-active' : ''}${isPrevious ? ' is-previous' : ''}`}
           src={shouldLoad ? photo.src : undefined}
           alt={photo.alt}
           aria-hidden={!isActive}
