@@ -50,8 +50,8 @@ export const aboutPhotos: EditorialPhoto[] = [
 ]
 
 export const featuredPhoto: EditorialPhoto = {
-  src: '/images/featured-collection-banner.webp',
-  alt: 'Woman wearing a coral traditional outfit',
+  src: '/images/featured-collection-banner-delhi-model.jpg',
+  alt: 'Fictional model wearing a plum embroidered traditional suit',
   title: 'Occasion wear',
   note: 'Illustrative style reference',
   position: 'center 14%',

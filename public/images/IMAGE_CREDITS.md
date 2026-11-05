@@ -226,7 +226,8 @@ For commercial-use details, see the [Pexels license](https://www.pexels.com/lice
 
 - `about-saree-portrait.webp` — [Pexels photo 33718198](https://www.pexels.com/photo/33718198/)
 - `about-embroidered-fabric.webp` — [Pexels photo 8886950](https://www.pexels.com/photo/8886950/)
-- `featured-collection-banner.webp` — [Pexels photo 37026633](https://www.pexels.com/photo/37026633/)
+- `featured-collection-banner-delhi-model.jpg` — AI-generated for the Renuka Tailors website on 2026-11-05; fictional adult fashion model, created as an illustrative style reference.
+- `featured-collection-banner.webp` — legacy Pexels photo 37026633; retained in the repository, no longer displayed on the website.
 
 ## License and attribution
 
