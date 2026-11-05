@@ -15,6 +15,7 @@ import { PhotoGallery } from './components/PhotoGallery'
 import { WhatsAppButton } from './components/WhatsAppButton'
 import { NotFoundPage } from './components/NotFoundPage'
 import { CollectionEntryGrid, CollectionDetailPage, CollectionsHubPage } from './CollectionPages'
+import { CircularGallery } from './components/CircularGallery'
 
 function Brand() {
   return <Link className="brand" to="/" aria-label="Renuka Tailors home"><span className="brand-wordmark"><strong>RENUKA</strong><small>TAILORS</small></span><span className="brand-city">MEERUT</span></Link>
@@ -275,9 +276,13 @@ function AboutSection() {
 
 function ServicesSection() {
   return <section className="services-section" id="services"><div className="services-top"><SectionIntro label="WHAT WE DO" title="Made for the way you wear it." copy="Every garment starts with a conversation. Visit the shop to discuss the style and service you have in mind." /><Link className="text-link" to="/services">All services <ArrowRight size={15} /></Link></div>
-    <div className="service-cards">{servicePhotos.map((card, index) => <Link className="service-card" to={`/services/${card.slug}`} key={card.slug}>
-      <span className="service-image"><img src={card.src} alt={card.alt} loading="lazy" style={card.position ? { objectPosition: card.position } : undefined} /></span><span className="service-no">0{index + 1}</span><h3>{card.title}</h3><p>{card.description}</p><span className="service-link">Explore <ArrowRight size={15} /></span>
-    </Link>)}</div>
+    <CircularGallery className="service-circular-gallery" items={servicePhotos.map((card) => ({
+      image: card.src,
+      text: card.title,
+      alt: card.alt,
+      href: `/services/${card.slug}`,
+      description: card.description,
+    }))} />
     <p className="service-note">These photos are visual references. Ask the team about tailoring options for your request.</p>
   </section>
 }

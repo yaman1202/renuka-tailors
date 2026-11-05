@@ -5,8 +5,22 @@ import { collections, collectionStyles, type CollectionStyle } from './data/coll
 import { business } from './data/business'
 import { PhotoGallery } from './components/PhotoGallery'
 import { NotFoundPage } from './components/NotFoundPage'
+import { CircularGallery } from './components/CircularGallery'
 
 export function CollectionEntryGrid({ compact = false }: { compact?: boolean }) {
+  if (compact) {
+    return <CircularGallery className="collection-circular-gallery" items={collections.map((collection) => {
+      const coverPhoto = collection.photos[collection.slug === 'bridal-wear' ? 3 : 0]
+      return {
+        image: coverPhoto.src,
+        text: collection.title,
+        alt: coverPhoto.alt,
+        href: `/collections/${collection.slug}`,
+        description: collection.intro,
+      }
+    })} />
+  }
+
   return <div className={`collection-entry-grid${compact ? ' collection-entry-grid--home' : ''}`}>
     {collections.map((collection, index) => {
       const coverPhoto = collection.photos[collection.slug === 'bridal-wear' ? 3 : 0]
