@@ -16,6 +16,7 @@ import { WhatsAppButton } from './components/WhatsAppButton'
 import { NotFoundPage } from './components/NotFoundPage'
 import { CollectionEntryGrid, CollectionDetailPage, CollectionsHubPage } from './CollectionPages'
 import { CircularGallery } from './components/CircularGallery'
+import { VisualEffects } from './components/VisualEffects'
 
 function Brand() {
   return <Link className="brand" to="/" aria-label="Renuka Tailors home"><span className="brand-wordmark"><strong>RENUKA</strong><small>TAILORS</small></span><span className="brand-city">MEERUT</span></Link>
@@ -115,6 +116,7 @@ function SectionIntro({ label, title, copy }: { label: string; title: string; co
 }
 
 function Hero() {
+  const heroRef = useRef<HTMLElement>(null)
   const [slideState, setSlideState] = useState<{ active: number; previous: number | null }>({ active: 0, previous: null })
   const [openingPhotoLoaded, setOpeningPhotoLoaded] = useState(false)
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches)
@@ -165,9 +167,56 @@ function Hero() {
     preload.src = upcomingPhoto.src
   }, [activeSlide, prefersReducedMotion])
 
+  useEffect(() => {
+    const hero = heroRef.current
+    const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)')
+    const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)')
+    if (!hero || !finePointer.matches) return
+
+    let frame = 0
+    let nextX = 0
+    let nextY = 0
+    const resetParallax = () => {
+      hero.style.setProperty('--hero-rotate-x', '0deg')
+      hero.style.setProperty('--hero-rotate-y', '0deg')
+      hero.style.setProperty('--hero-parallax-x', '0px')
+      hero.style.setProperty('--hero-parallax-y', '0px')
+    }
+    const onPointerMove = (event: PointerEvent) => {
+      if (motionPreference.matches) {
+        resetParallax()
+        return
+      }
+      const bounds = hero.getBoundingClientRect()
+      nextX = Math.max(-1, Math.min(1, ((event.clientX - bounds.left) / bounds.width - 0.5) * 2))
+      nextY = Math.max(-1, Math.min(1, ((event.clientY - bounds.top) / bounds.height - 0.5) * 2))
+      if (frame) return
+      frame = window.requestAnimationFrame(() => {
+        frame = 0
+        hero.style.setProperty('--hero-rotate-x', `${nextY * -0.8}deg`)
+        hero.style.setProperty('--hero-rotate-y', `${nextX * 1.1}deg`)
+        hero.style.setProperty('--hero-parallax-x', `${nextX * -8}px`)
+        hero.style.setProperty('--hero-parallax-y', `${nextY * -5}px`)
+      })
+    }
+    const onMotionPreferenceChange = () => {
+      if (motionPreference.matches) resetParallax()
+    }
+    hero.addEventListener('pointermove', onPointerMove, { passive: true })
+    hero.addEventListener('pointerleave', resetParallax, { passive: true })
+    motionPreference.addEventListener('change', onMotionPreferenceChange)
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame)
+      hero.removeEventListener('pointermove', onPointerMove)
+      hero.removeEventListener('pointerleave', resetParallax)
+      motionPreference.removeEventListener('change', onMotionPreferenceChange)
+      resetParallax()
+    }
+  }, [])
+
   const nextSlide = (activeSlide + 1) % (heroSlideshowPhotos.length + 1)
 
-  return <section className="home-hero" id="top">
+  return <section className="home-hero" id="top" ref={heroRef}>
     <div className="hero-image-wrap"><picture className={`${activeSlide === 0 ? 'is-active' : 'is-hidden'}${activeSlide !== 0 && previousSlide === 0 ? ' is-previous' : ''}`} aria-hidden={activeSlide !== 0}>
       <source type="image/webp" srcSet={heroPhoto.webpSrcSet} sizes="100vw" />
       <img ref={openingPhotoRef} src={heroPhoto.src} srcSet={heroPhoto.srcSet} sizes="100vw" width="3456" height="5184" alt={heroPhoto.alt} loading="eager" fetchPriority="high" decoding="sync" onLoad={markOpeningPhotoReady} />
@@ -189,6 +238,7 @@ function Hero() {
         />
       })}
     </div>
+    <span className="hero-silk-light" aria-hidden="true" />
     <div className="hero-frame" aria-hidden="true" />
     <p className="hero-meta hero-meta-left hero-brand"><strong>RENUKA</strong><span>TAILORS <i>·</i> MEERUT</span></p>
     <p className="hero-meta hero-meta-right">MADE WITH CARE · WORN YOUR WAY</p>
@@ -348,7 +398,7 @@ function RouteEffects() {
 }
 
 export default function App() {
-  return <ErrorBoundary><RouteEffects /><SeoHead /><Header /><Routes>
+  return <ErrorBoundary><RouteEffects /><VisualEffects /><SeoHead /><Header /><Routes>
     <Route path="/" element={<HomePage />} />
     <Route path="/about" element={<AboutPage />} />
     <Route path="/services" element={<ServicesIndexPage />} />

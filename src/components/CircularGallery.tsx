@@ -184,11 +184,20 @@ class CircularGalleryEngine {
   private viewport: Viewport
   private frame = 0
   private pointerStart: { x: number; target: number } | null = null
+  private isInView = false
   private readonly bend = 3.5
   private readonly scrollSpeed = 2.5
   private readonly scrollEase = 0.03
   private readonly onResize = () => this.resize()
   private visibilityObserver: IntersectionObserver | null = null
+  private readonly onVisibilityChange = () => {
+    if (document.hidden || !this.isInView || !this.container.isConnected) {
+      window.cancelAnimationFrame(this.frame)
+      this.frame = 0
+    } else if (!this.frame) {
+      this.update()
+    }
+  }
   private snapTimeout = 0
   private readonly onWheel = (event: WheelEvent) => {
     event.preventDefault()
@@ -213,7 +222,8 @@ class CircularGalleryEngine {
     this.container = container
     const rect = container.getBoundingClientRect()
     this.screen = { width: rect.width, height: rect.height }
-    this.renderer = new Renderer({ alpha: true, antialias: true, dpr: Math.min(window.devicePixelRatio || 1, 1.5) })
+    const isSmallScreen = window.matchMedia('(max-width: 760px)').matches
+    this.renderer = new Renderer({ alpha: true, antialias: !isSmallScreen, dpr: Math.min(window.devicePixelRatio || 1, isSmallScreen ? 1 : 1.35) })
     this.renderer.gl.clearColor(0, 0, 0, 0)
     container.appendChild(this.renderer.gl.canvas)
     this.camera = new Camera(this.renderer.gl)
@@ -222,7 +232,7 @@ class CircularGalleryEngine {
     this.viewport = { width: 1, height: 1 }
     this.resize()
 
-    const geometry = new Plane(this.renderer.gl, { heightSegments: 50, widthSegments: 100 })
+    const geometry = new Plane(this.renderer.gl, { heightSegments: isSmallScreen ? 24 : 36, widthSegments: isSmallScreen ? 48 : 72 })
     const repeatedItems = [...items, ...items]
     repeatedItems.forEach((item, index) => {
       this.media.push(new GalleryMedia(
@@ -244,9 +254,11 @@ class CircularGalleryEngine {
     canvas.addEventListener('pointerup', this.onPointerUp)
     canvas.addEventListener('pointercancel', this.onPointerUp)
     window.addEventListener('resize', this.onResize)
+    document.addEventListener('visibilitychange', this.onVisibilityChange)
     if ('IntersectionObserver' in window) {
       this.visibilityObserver = new IntersectionObserver(([entry]) => {
-        if (entry.isIntersecting) {
+        this.isInView = entry.isIntersecting
+        if (this.isInView && !document.hidden) {
           if (!this.frame) this.update()
         } else {
           window.cancelAnimationFrame(this.frame)
@@ -255,6 +267,7 @@ class CircularGalleryEngine {
       }, { rootMargin: '100px' })
       this.visibilityObserver.observe(container)
     } else {
+      this.isInView = true
       this.update()
     }
   }
@@ -305,6 +318,7 @@ class CircularGalleryEngine {
     window.cancelAnimationFrame(this.frame)
     window.clearTimeout(this.snapTimeout)
     this.visibilityObserver?.disconnect()
+    document.removeEventListener('visibilitychange', this.onVisibilityChange)
     window.removeEventListener('resize', this.onResize)
     const canvas = this.renderer.gl.canvas
     canvas.removeEventListener('wheel', this.onWheel)
@@ -319,6 +333,7 @@ class CircularGalleryEngine {
 export function CircularGallery({ items, className }: GalleryProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [motionReduced, setMotionReduced] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+  const [galleryReady, setGalleryReady] = useState(false)
   const [webglFailed, setWebglFailed] = useState(false)
 
   useEffect(() => {
@@ -330,7 +345,25 @@ export function CircularGallery({ items, className }: GalleryProps) {
 
   useEffect(() => {
     const container = containerRef.current
-    if (!container || motionReduced) return
+    if (!container || motionReduced || galleryReady) return
+    if (!('IntersectionObserver' in window)) {
+      setGalleryReady(true)
+      return
+    }
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setGalleryReady(true)
+        observer.disconnect()
+      }
+    }, { rootMargin: '520px 0px' })
+    observer.observe(container)
+    return () => observer.disconnect()
+  }, [galleryReady, motionReduced])
+
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container || motionReduced || !galleryReady) return
 
     try {
       const gallery = new CircularGalleryEngine(container, items)
@@ -339,7 +372,7 @@ export function CircularGallery({ items, className }: GalleryProps) {
       console.error('Circular gallery could not initialize', error)
       setWebglFailed(true)
     }
-  }, [items, motionReduced])
+  }, [items, motionReduced, galleryReady])
 
   const showFallback = motionReduced || webglFailed
 

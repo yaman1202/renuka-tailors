@@ -1105,3 +1105,100 @@ h1, h2, h3, p { overflow-wrap: anywhere; }
 @media (max-width: 380px) {
   .facts-strip { padding-inline: 20px; }
 }
+
+/* Subtle, image-led motion for the tailoring campaign. */
+.hero-image-wrap {
+  transform: perspective(1500px) rotateX(var(--hero-rotate-x, 0deg)) rotateY(var(--hero-rotate-y, 0deg)) scale(1.035) translate3d(var(--hero-parallax-x, 0px), var(--hero-parallax-y, 0px), 0);
+  transform-origin: center;
+  transition: transform .6s cubic-bezier(.2,.7,.2,1);
+  will-change: transform;
+}
+.hero-silk-light {
+  position: absolute;
+  z-index: -1;
+  inset: -18% -25%;
+  background: linear-gradient(112deg, transparent 39%, rgb(255 244 225 / 8%) 48%, rgb(255 255 255 / 3%) 52%, transparent 61%);
+  opacity: .8;
+  pointer-events: none;
+  transform: translate3d(-14%, 0, 0) rotate(0.001deg);
+  animation: hero-silk-drift 17s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes hero-silk-drift {
+  from { transform: translate3d(-14%, 0, 0) rotate(0.001deg); }
+  to { transform: translate3d(14%, 0, 0) rotate(0.001deg); }
+}
+@keyframes hero-copy-enter {
+  from { opacity: 0; translate: 0 15px; filter: blur(3px); }
+  to { opacity: 1; translate: 0 0; filter: blur(0); }
+}
+.hero-copy>.eyebrow, .hero-copy>h1, .hero-copy>.hero-subtitle, .hero-copy>.hero-actions {
+  animation: hero-copy-enter .78s cubic-bezier(.2,.7,.2,1) both;
+}
+.hero-copy>.eyebrow { animation-delay: .05s; }
+.hero-copy>h1 { animation-delay: .13s; }
+.hero-copy>.hero-subtitle { animation-delay: .22s; }
+.hero-copy>.hero-actions { animation-delay: .31s; }
+
+/* Scroll reveals use the individual translate property so existing layouts and transforms remain intact. */
+.motion-reveal-pending {
+  opacity: 0;
+  translate: 0 18px;
+}
+.motion-revealed {
+  opacity: 1;
+  translate: 0 0;
+  transition: opacity .65s ease var(--motion-delay, 0ms), translate .65s cubic-bezier(.2,.7,.2,1) var(--motion-delay, 0ms);
+}
+.photo-gallery-trigger, .collection-entry, .service-page-card, .journal-card {
+  transform: perspective(950px) rotateX(var(--card-tilt-x, 0deg)) rotateY(var(--card-tilt-y, 0deg));
+  transform-style: preserve-3d;
+  transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease, border-color .2s ease;
+  will-change: transform;
+}
+.photo-gallery-trigger:hover, .photo-gallery-trigger:focus-visible, .collection-entry:hover, .collection-entry:focus-visible,
+.service-page-card:hover, .journal-card:hover {
+  box-shadow: 0 14px 34px rgb(49 31 26 / 12%);
+}
+.button, .site-header nav .nav-contact {
+  translate: var(--magnet-x, 0px) var(--magnet-y, 0px);
+  transition: translate .2s cubic-bezier(.2,.7,.2,1), background .18s ease, color .18s ease, border .18s ease, box-shadow .25s ease;
+}
+.visual-cursor {
+  position: fixed;
+  z-index: 10000;
+  top: 0;
+  left: 0;
+  width: 13px;
+  height: 13px;
+  border: 1px solid rgb(248 239 226 / 84%);
+  border-radius: 50%;
+  background: rgb(248 239 226 / 14%);
+  opacity: 0;
+  pointer-events: none;
+  transition: width .2s ease, height .2s ease, opacity .18s ease, background-color .2s ease, border-color .2s ease;
+  will-change: transform;
+}
+.visual-cursor.is-visible { opacity: .8; }
+.visual-cursor.is-interactive { width: 31px; height: 31px; border-color: #e6c98f; background: rgb(113 49 66 / 30%); opacity: .9; }
+@media (hover: hover) and (pointer: fine) {
+  .has-visual-cursor, .has-visual-cursor body, .has-visual-cursor a, .has-visual-cursor button, .has-visual-cursor input, .has-visual-cursor textarea, .has-visual-cursor select { cursor: none !important; }
+}
+
+@media (max-width: 760px) {
+  .home-hero { perspective: none; }
+  .hero-image-wrap { transform: scale(1.015); transition: none; }
+  .hero-silk-light { inset: -12% -55%; opacity: .44; animation-duration: 22s; }
+  .visual-cursor { display: none; }
+  .photo-gallery-trigger, .collection-entry, .service-page-card, .journal-card { transform: none; transition: box-shadow .25s ease, border-color .2s ease; will-change: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-image-wrap { transform: none; transition: none; will-change: auto; }
+  .hero-silk-light { display: none; animation: none; }
+  .hero-copy>.eyebrow, .hero-copy>h1, .hero-copy>.hero-subtitle, .hero-copy>.hero-actions { animation: none; }
+  .motion-reveal-pending, .motion-revealed { opacity: 1; translate: none; transition: none; }
+  .photo-gallery-trigger, .collection-entry, .service-page-card, .journal-card,
+  .button, .site-header nav .nav-contact { transform: none; translate: none; transition: none; will-change: auto; }
+  .visual-cursor { display: none; }
+}
