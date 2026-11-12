@@ -37,10 +37,10 @@ The eight category galleries each use ten distinct photographs. Pexels source pa
 | Blouse | `blouse-03.jpg` | 15384798 | Mir Rajjak | 6000 × 4000 | 2600 × 1733 | [Pexels](https://www.pexels.com/photo/15384798/) |
 | Blouse | `blouse-04.jpg` | 19282458 | Mir Rajjak | 6000 × 4000 | 2600 × 1733 | [Pexels](https://www.pexels.com/photo/19282458/) |
 | Blouse | `blouse-05.jpg` | 20839074 | Kiran More | 3840 × 5760 | 1733 × 2600 | [Pexels](https://www.pexels.com/photo/20839074/) |
-| Blouse | `blouse-06.jpg` | 33328181 | Sunannya Das | 3884 × 5832 | 1731 × 2600 | [Pexels](https://www.pexels.com/photo/33328181/) |
-| Blouse | `blouse-07.jpg` | 17184881 | Shovan Datta | 4000 × 6000 | 1733 × 2600 | [Pexels](https://www.pexels.com/photo/17184881/) |
-| Blouse | `blouse-08.jpg` | 12308956 | Vika Kirillova | 6240 × 4160 | 2600 × 1733 | [Pexels](https://www.pexels.com/photo/12308956/) |
-| Blouse | `blouse-09.jpg` | 37026633 | Michael Takahashi | 2296 × 4080 | 1463 × 2600 | [Pexels](https://www.pexels.com/photo/37026633/) |
+| Blouse | `blouse-06.jpg` | 15457081 | Shantanu Kumar | 4640 × 6960 | 1733 × 2600 | [Pexels](https://www.pexels.com/photo/traditional-dress-15457081/) |
+| Blouse | `blouse-07.jpg` | 34661599 | Bhavya Saini | 4000 × 6000 | 1733 × 2600 | [Pexels](https://www.pexels.com/photo/woman-in-traditional-saree-at-humayun-s-tomb-34661599/) |
+| Blouse | `blouse-08.jpg` | 10908479 | Aman Ajimal Fashion Stylist | 3376 × 6000 | 1463 × 2600 | [Pexels](https://www.pexels.com/photo/a-bride-posing-beautifully-at-the-camera-10908479/) |
+| Blouse | `blouse-09.jpg` | 15956729 | SKG Photography | 4160 × 6240 | 1733 × 2600 | [Pexels](https://www.pexels.com/photo/woman-posing-wearing-traditional-dress-15956729/) |
 | Blouse | `blouse-10.jpg` | 19567865 | DARKMODE CINEMA | 4000 × 6000 | 1733 × 2600 | [Pexels](https://www.pexels.com/photo/19567865/) |
 | Lehenga | `lehenga-01.jpg` | 33359858 | Fliqa India | 4024 × 6048 | 1730 × 2600 | [Pexels](https://www.pexels.com/photo/33359858/) |
 | Lehenga | `lehenga-02.jpg` | 17154866 | Lucky Digital | 4640 × 6960 | 1733 × 2600 | [Pexels](https://www.pexels.com/photo/17154866/) |
@@ -126,10 +126,10 @@ The eight category galleries each use ten distinct photographs. Pexels source pa
 | Blouse | `blouse-03.jpg` | 15384798 | Mir Rajjak | 6000 × 4000 | 2600 × 1733 | [Pexels](https://www.pexels.com/photo/15384798/) |
 | Blouse | `blouse-04.jpg` | 19282458 | Mir Rajjak | 6000 × 4000 | 2600 × 1733 | [Pexels](https://www.pexels.com/photo/19282458/) |
 | Blouse | `blouse-05.jpg` | 20839074 | Kiran More | 3840 × 5760 | 1733 × 2600 | [Pexels](https://www.pexels.com/photo/20839074/) |
-| Blouse | `blouse-06.jpg` | 33328181 | Sunannya Das | 3884 × 5832 | 1731 × 2600 | [Pexels](https://www.pexels.com/photo/33328181/) |
-| Blouse | `blouse-07.jpg` | 17184881 | Shovan Datta | 4000 × 6000 | 1733 × 2600 | [Pexels](https://www.pexels.com/photo/17184881/) |
-| Blouse | `blouse-08.jpg` | 12308956 | Vika Kirillova | 6240 × 4160 | 2600 × 1733 | [Pexels](https://www.pexels.com/photo/12308956/) |
-| Blouse | `blouse-09.jpg` | 37026633 | Michael Takahashi | 2296 × 4080 | 1463 × 2600 | [Pexels](https://www.pexels.com/photo/37026633/) |
+| Blouse | `blouse-06.jpg` | 15457081 | Shantanu Kumar | 4640 × 6960 | 1733 × 2600 | [Pexels](https://www.pexels.com/photo/traditional-dress-15457081/) |
+| Blouse | `blouse-07.jpg` | 34661599 | Bhavya Saini | 4000 × 6000 | 1733 × 2600 | [Pexels](https://www.pexels.com/photo/woman-in-traditional-saree-at-humayun-s-tomb-34661599/) |
+| Blouse | `blouse-08.jpg` | 10908479 | Aman Ajimal Fashion Stylist | 3376 × 6000 | 1463 × 2600 | [Pexels](https://www.pexels.com/photo/a-bride-posing-beautifully-at-the-camera-10908479/) |
+| Blouse | `blouse-09.jpg` | 15956729 | SKG Photography | 4160 × 6240 | 1733 × 2600 | [Pexels](https://www.pexels.com/photo/woman-posing-wearing-traditional-dress-15956729/) |
 | Blouse | `blouse-10.jpg` | 19567865 | DARKMODE CINEMA | 4000 × 6000 | 1733 × 2600 | [Pexels](https://www.pexels.com/photo/19567865/) |
 | Lehenga | `lehenga-01.jpg` | 33359858 | Fliqa India | 4024 × 6048 | 1730 × 2600 | [Pexels](https://www.pexels.com/photo/33359858/) |
 | Lehenga | `lehenga-02.jpg` | 17154866 | Lucky Digital | 4640 × 6960 | 1733 × 2600 | [Pexels](https://www.pexels.com/photo/17154866/) |

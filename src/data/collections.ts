@@ -33,9 +33,9 @@ const specs: Record<string, PhotoSpec[]> = {
   blouse: [
     [35399684, 'Classic blouse styling', ['Traditional']], [29026116, 'A modern blouse look', ['Modern', 'Simple']],
     [15384798, 'Embroidered finish', ['Embroidery', 'Traditional']], [19282458, 'A statement blouse', ['Party', 'Modern']],
-    [20839074, 'Traditional blouse styling', ['Traditional', 'Simple']], [33328181, 'An occasion blouse', ['Bridal', 'Embroidery']],
-    [17184881, 'A clean blouse pairing', ['Simple', 'Modern']], [12308956, 'Bridal blouse reference', ['Bridal', 'Traditional']],
-    [37026633, 'Contemporary blouse look', ['Modern', 'Party']], [19567865, 'Green blouse with white sari', ['Traditional', 'Embroidery']],
+    [20839074, 'Traditional blouse styling', ['Traditional', 'Simple']], [15457081, 'An occasion blouse', ['Party', 'Traditional']],
+    [34661599, 'A clean blouse pairing', ['Simple', 'Modern']], [10908479, 'Bridal blouse reference', ['Bridal', 'Traditional']],
+    [15956729, 'Contemporary blouse look', ['Modern', 'Party']], [19567865, 'Green blouse with white sari', ['Traditional', 'Embroidery']],
   ],
   lehenga: [
     [33359858, 'A classic lehenga silhouette', ['Traditional', 'Bridal']], [17154866, 'Embroidered occasion wear', ['Embroidery', 'Party']],
